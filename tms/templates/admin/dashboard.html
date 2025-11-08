@@ -1,0 +1,29 @@
+{% extends 'admin/adminbase.html' %}
+
+{% block content %}
+  <div class="mt-10 ml-10">
+    <p class="text-lg">Welocome to the Admin Dashboard. here you can manage users. view reports, and configure system settings.</p>
+    <div class="grid grid-cols-5">
+        <div class="bg-blue-500 text-white p-5 m-5 rounded-lg flex-1">
+            <h2 class="text-2xl font-bold">Total Tickets</h2>
+            <p class="text-3xl mt-2">{{count.tickets}}</p>
+        </div>
+        <div class="bg-rose-500 text-white p-5 m-5 rounded-lg flex-1">
+            <h2 class="text-2xl font-bold">Total Users</h2>
+            <p class="text-3xl mt-2">{{count.users}}</p>
+        </div>
+        <div class="bg-amber-500 text-white p-5 m-5 rounded-lg flex-1">
+            <h2 class="text-2xl font-bold">Total Replay</h2>
+            <p class="text-3xl mt-2">{{count.replay}}</p>
+        </div>
+        <div class="bg-green-500 text-white p-5 m-5 rounded-lg flex-1">
+            <h2 class="text-2xl font-bold">Total Agents</h2>
+            <p class="text-3xl mt-2">{{count.agents}}</p>
+        </div>
+        <div class="bg-yellow-500 text-white p-5 m-5 rounded-lg flex-1">
+            <h2 class="text-2xl font-bold">Total Resolve</h2>
+            <p class="text-3xl mt-2">{{count.resloved_tickets}}</p>
+        </div>
+    </div>
+  </div>
+{% endblock  %}

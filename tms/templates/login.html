@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load tailwind_filters %}
+
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 px-4">
+  <div class="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md">
+    <h2 class="text-3xl font-bold text-center text-blue-600 mb-6">Login to Your Account</h2>
+
+   
+
+    <form method="POST" class="space-y-6">
+      {% csrf_token %}
+      <div>
+        <label class="block text-gray-700 font-medium mb-2">Username</label>
+        <input type="text" name="username" required
+               class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-2">Password</label>
+        <input type="password" name="password" required
+               class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      </div>
+
+      <button type="submit"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-200">
+        Login
+      </button>
+    </form>
+
+    <p class="text-center text-gray-600 mt-6">
+      Don’t have an account?
+      <a href="{% url 'registerpage' %}" class="text-blue-600 font-semibold hover:underline">
+        Sign up
+      </a>
+    </p>
+  </div>
+</div>
+{% endblock %}

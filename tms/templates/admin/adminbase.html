@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+    <div class="flex flex-1 bg-[#0F172A] text-white px-[5%] py-5 justify-between items-center">
+        <h2 class="text-xl font-bold text-white">Admin Panel</h2>
+
+        <div class="flex ">
+            <a href="" class="text-white bg-red-500 px-3 py-2 rounded">Log Out</a>
+        </div>
+    </div>
+
+    <div class=" flex flex-1 gap-10">
+        <div class="w-2/12 self-start ">
+            <div class="flex flex-col divide-y divide-slate-600 ">
+                <a href="{% url 'admindashboard' %}" class="bg-[#1E293B] text-white px-8 py-2 hover:bg-[#334155] text-lg font-medium">Dashboard</a>
+                <a href="{% url 'manageticket' %}" class="bg-[#1E293B] text-white px-8 py-2 hover:bg-[#334155] text-lg font-medium">Manage Tickets</a>
+                <a href="{% url 'manageagent' %}" class="bg-[#1E293B] text-white px-8 py-2 hover:bg-[#334155] text-lg font-medium">Agents</a>
+                <a href="{% url 'managereport' %}" class="bg-[#1E293B] text-white px-8 py-2 hover:bg-[#334155] text-lg font-medium">Reports</a>
+                <a href="{% url 'manageuser' %}" class="bg-[#1E293B] text-white px-8 py-2 hover:bg-[#334155] text-lg font-medium">Manage Users</a>
+                
+                <a href="" class="bg-[#1E293B] text-white px-8 py-2 hover:bg-[#334155] text-lg font-medium">Logout</a>
+            </div>
+        </div>
+
+        <div class="w-10/12 mt-4">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+
+
+</body>
+
+</html>

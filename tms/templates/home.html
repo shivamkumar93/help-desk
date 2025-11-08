@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+ {% load static %}
+{% block content %}
+
+<div
+    class="flex flex-col bg-gradient-to-r from-[#4C9AFF] to-[#B3E5FC] text-[#0D1B2A] lg:flex-row lg:items-center  px-[10%] py-20">
+    <div class="">
+        <h4 class="mb-2 text-2xl font-bold capitalize">Hi,
+            {% if request.user.is_authenticated %} {{user.username}}! {% else %} Guest! {% endif %} </h4>
+        <h2 class="text-4xl font-bold">Welcome to Tech Support</h2>
+        <p class="mt-4 text-lg">Your one-step sloutation for all your technical suppot needs. We provide expert
+            assistance for hardware, software, and network issues.</p>
+        <a href="" class="py-3 font-semibold px-6 rounded hover:text-white bg-blue-600 hover:bg-blue-800 mt-4
+        inline-block ">Get Started</a>
+    </div>
+
+    <div class="mt-8 lg:mt-0">
+        
+        <img src="{% static 'banner.png' %}" alt="" class="h-96 w-auto">
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>User Panel</title>
+</head>
+
+<body>
+    <div class="flex flex-1 bg-gray-700 text-white items-center py-4 px-[10%] justify-between">
+        
+        <a href="{% url 'homepage' %}"class="text-2xl font-bold" >TechSupport | User Panel</a>
+        <!-- links -->
+        <div class="ml-auto space-x-4 ">
+            <a href="" class="hover:underline hover:text-[#0041A3] hover:bg-[#FFFFFF] py-1 px-2 rounded-sm">Home</a>
+            <a href="" class="hover:underline hover:text-[#0041A3] hover:bg-[#FFFFFF] py-1 px-2 rounded-sm">About</a>
+            <a href="" class="hover:underline hover:text-[#0041A3] hover:bg-[#FFFFFF] py-1 px-2 rounded-sm">Contact</a>
+        </div>
+
+        <div class="ml-auto flex space-x-3">
+            
+            {% if user.is_authenticated %}
+            <a href="" class="hover:underline">DashBoard</a>
+            <form action="{% url 'logout' %}" method="post" >
+                {% csrf_token %}
+                <button type="submit" class="hover:underline" >Logout</button>
+            </form>
+            {% else %}
+                <a href="" class="hover:underline">Login</a>
+            <a href="{% url 'registerpage' %}" class="hover:underline">Register</a>
+            {% endif %}
+                
+            
+
+        </div>
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+</body>
+
+</html>
