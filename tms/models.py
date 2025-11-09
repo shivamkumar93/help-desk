@@ -33,7 +33,7 @@ class CommentTicket(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.author
+        return self.comment
 
 class AttachmentTicket(models.Model):
     ticket = models.ForeignKey(TicketSupport, on_delete=models.CASCADE, related_name='attachments')

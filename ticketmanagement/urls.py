@@ -19,6 +19,7 @@ urlpatterns = [
     path('admindashboard/', dashboard, name='admindashboard'),
     path("admin-ticket/", manage_tickets, name='manageticket'),
     path("admin-changeStatus/<int:id>/", change_status, name='changestatus'),
+    path("admin-deleteTicket/<int:id>/", deleteTicket, name='deleteticket'),
     path("admin-user/", manage_user, name='manageuser'),
     path("admin-agent/", manage_agents, name='manageagent'),
     path("admin-reports/", manage_reports, name='managereport'),
@@ -26,6 +27,7 @@ urlpatterns = [
     # user panel 
     path("user-insertTicket/", insertTicket, name='insertTicket'),
     path("user-dashboard/", userDashboard, name='userdashboard'),
+    path("user-ticketdetail/<int:ticket_id>/", ticketDetail, name='ticketdetail'),
 
 ]
 

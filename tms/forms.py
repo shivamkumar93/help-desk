@@ -19,7 +19,7 @@ class SupportTicketForm(ModelForm):
 class TicketCommentForm(ModelForm):
     class Meta:
         model = CommentTicket
-        fields = '__all__'
+        fields = ['comment']
 
 # class TicketAttachmentForm(ModelForm):
 #     class Meta:

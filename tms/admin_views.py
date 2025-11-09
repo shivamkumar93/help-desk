@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from tms.models import *
 from tms.forms import *
 def dashboard(request):
@@ -33,4 +33,9 @@ def change_status(request, id):
     ticket = TicketSupport.objects.get(id=id)
     ticket.status = 'closed'
     ticket.save()
+    return redirect('manageticket')
+
+def deleteTicket(request, id):
+    item = get_object_or_404(TicketSupport, id=id)
+    item.delete()
     return redirect('manageticket')

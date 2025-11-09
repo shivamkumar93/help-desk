@@ -1,0 +1,59 @@
+{% extends 'user/userbase.html' %}
+{% load tailwind_filters %}
+{% block content %}
+<div class="flex flex-1 px-[10%] w-full mt-10">
+    <div class="flex flex-col ">
+
+
+        <h2 class="text-4xl font-semibold ">My raise ticket</h2>
+        <div class="flex flex-1  mt-3 space-x-5 w-full">
+            <h4 class=" font-semibold">Title : <span class="text-gray-600">{{ticket.title}}</span></h4>
+            <p class=" font-semibold">Status : <span class="text-gray-600">{{ticket.status}}</span></p>
+            <p class=" font-semibold">Description : <span class="text-gray-600">{{ticket.description}}</span></p>
+        </div>
+        <hr class="mt-2">
+        <div class="flex flex-col mt-5">
+            <h2 class="text-xl font-bold mb-2">Reply</h2>
+            <div class="flex-1  px-5 py-3 space-y-4">
+                {% for reply in replies %}
+                {% if reply.author.is_staff %}
+                <!-- Admin Message -->
+                <div class="flex justify-end">
+                    <div class="bg-blue-500 text-white rounded-2xl px-4 py-2 max-w-[70%] shadow">
+                        <p class="font-semibold text-sm mb-1">Admin</p>
+                        <p>{{ reply.comment|linebreaksbr }}</p>
+                        <p class="text-xs text-gray-200 mt-1 text-right">{{ reply.created_at|date:"d M Y H:i" }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <!-- User Message -->
+                <div class="flex justify-start">
+                    <div class="bg-green-100 text-gray-900 rounded-2xl px-4 py-2 ">
+                        <p class="font-semibold text-sm mb-1">You</p>
+                        <p>{{ reply.comment|linebreaksbr }}</p>
+                        <p class="text-xs text-gray-500 mt-1 text-right">{{ reply.created_at|date:"d M Y H:i" }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% empty %}
+                <p class="text-center text-gray-400">No messages yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="flex-col w-5/12 px-[10%]">
+    <h3> Add Your Reply</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit">Send Reply</button>
+    </form>
+
+    <p><a href="{% url 'userdashboard' %}">⬅ Back to My Tickets</a></p>
+</div>
+
+
+
+{% endblock content %}

@@ -2,46 +2,74 @@
 
 {% block content %}
 
-<div class="px-[10%] py-6 space-y-6">
-    <h2 class="text-2xl font-bold ">Welcome to Your DashBoard ({{user.username}})</h2>
+<div class="px-[10%] py-6 space-y-6 bg-gray-200">
+    <div class="flex flex-col">
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-        <div class="flex border flex-col shadow-lg p-6 rounded">
-            <h2 class="text-2xl font-bold">Total Tickets</h2>
-            <p class="text-4xl font-bold text-yellow-700 px-3"> {{open_ticket|add:close_ticket}} </p>
-            <h3 class="text-xl font-bold mb-1">Total Submited Tickets</h3>
-            <div class="flex justify-between">
-                <p class="text-lg font-medium">Open Tickets : {{open_ticket}} </p>
-                <p class="text-lg font-medium">Close Tickets : {{close_ticket}}</p>
+        <div class="justify-between flex text-center items-center m-5">
+
+            <h2 class="text-2xl font-bold ">Welcome to Your DashBoard ({{user.username}})</h2>
+            <a href="{% url 'insertTicket' %}"
+                class="text-xl font-bold text-white py-2 px-3 bg-blue-500 border rounded  hover:bg-blue-700">Raised
+                Ticket</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-5">
+
+            <div class="flex border border-gray-300 flex-col shadow-lg p-6 rounded">
+                <h2 class="text-2xl font-bold">Total Tickets : <span class="text-yellow-700"> {{open_ticket|add:close_ticket|add:in_process}}</span></h2>
+                <div class="">
+                    <p class="text-lg">Open Tickets : {{open_ticket}} </p>
+                    <p class="text-lg">Closed Tickets : {{close_ticket}}</p>
+                    <p class="text-lg">In_progress Tickets : {{in_process}}</p>
+                </div>
             </div>
-        </div>
 
-        <div class="flex border flex-col shadow-lg p-6">
-            <h2>Recent Activity</h2>
-            <ul class="list-disc list-inside text-gray-700">
-                <li>Submitted a ticket on "Login Issue"</li>
-                <li>Commented on ticket #45</li>
-                <li>Closed ticket #32</li>
-            </ul>
-        </div>
+            <div class="flex border border-gray-300 flex-col rounded shadow-lg p-6">
+                <h2 class="text-xl font-bold">Recent Activity</h2>
+                <ul class="list-disc list-inside text-gray-700">
+                    <li class="text-lg font-medium">Submitted a ticket on "Login Issue"</li>
+                    <li class="text-lg font-medium">Commented on ticket #45</li>
+                    <li class="text-lg font-medium">Closed ticket #32</li>
+                </ul>
+            </div>
 
-        <div class="flex border flex-col shadow-lg p-6">
-            <h2 class="text-2xl font-semibold">Profile</h2>
-            <p class="text-gray-700">Name : {{user.username}}</p>
-            <p class="text-gray-700">Email : {{request.user.email}}</p>
-            <p class="text-gray-700">Member : {{user.date_joined|date:"F j, Y"}} </p>
+            <div class="flex border border-gray-300 rounded flex-col shadow-lg p-6">
+                <h2 class="text-2xl font-semibold">Profile</h2>
+                <p class="text-gray-600 text-lg font-medium">Name : {{user.username}}</p>
+                <p class="text-gray-600 text-lg font-medium">Email : {{request.user.email}}</p>
+                <p class="text-gray-600 text-lg font-medium">Member : {{user.date_joined|date:"F j, Y"}} </p>
+
+            </div>
 
         </div>
+    </div>
+    <div class="flex flex-col py-6 pr-[10%] mt-8 space-y-6">
+        <h2  class="text-2xl font-medium ">My All Raise Tickets</h2>
+        <table >
+            <thead>
+                <tr class="">
+                    <th class="border border-gray-300 py-2 ">Id</th>
+                    <th class="border border-gray-300 py-2 ">Title</th>
+                    <th class="border border-gray-300 py-2 ">Status</th>
+                    <th class="border border-gray-300 py-2 ">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for ticket in tickets %}
+                       
+                <tr>
+                    <td class="border border-gray-300 py-2 px-4 text-lg">{{ticket.id}}</td>
+                    <td class="border border-gray-300 py-2 px-4 text-lg">{{ticket.title}} </td>
+                    <td class="border border-gray-300 py-2 px-4 text-lg">{{ticket.status}} </td>
+                    <td class="border border-gray-300 py-2 px-4 text-lg"><a href="{% url 'ticketdetail' ticket.id %}" class="hover:text-blue-700">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
     </div>
-
-
-
-</div>
-<div class="flex flex-1 px-[10%]">
-
-    <a href="{% url 'insertTicket' %}" class="text-xl font-bold text-white py-2 px-3 bg-blue-500 border rounded mt-8 hover:bg-blue-700">Raised Ticket</a>
 </div>
 
 {% endblock content %}
