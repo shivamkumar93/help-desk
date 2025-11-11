@@ -22,7 +22,7 @@
         <div class="ml-auto flex space-x-3">
             
             {% if user.is_authenticated %}
-            <a href="" class="hover:underline">DashBoard</a>
+            <a href="" class="hover:underline">{{user.username}}</a>
             <form action="{% url 'logout' %}" method="post" >
                 {% csrf_token %}
                 <button type="submit" class="hover:underline" >Logout</button>

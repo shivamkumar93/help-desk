@@ -1,0 +1,86 @@
+{% extends 'admin/adminbase.html' %}
+{% load tailwind_filters %}
+{% block content %}
+<div class="flex flex-col items-center w-full px-[10%] mt-10">
+
+  <!-- Ticket Details Card -->
+  <div class="bg-white shadow-md rounded-2xl p-6 w-full lg:w-9/12 border border-gray-200">
+    <h2 class="text-3xl font-bold text-gray-800 mb-4">🎫 Ticket Details</h2>
+
+    <div class="space-y-2 text-gray-700">
+      <h4 class="font-semibold">Title: <span class="text-gray-600">{{ ticket.title }}</span></h4>
+      <p class="font-semibold">Status: 
+        {% if ticket.status == "open" %}
+          <span class="text-green-600">{{ ticket.status|title }}</span>
+        {% elif ticket.status == "closed" %}
+          <span class="text-red-600">{{ ticket.status|title }}</span>
+        {% else %}
+          <span class="text-yellow-600">{{ ticket.status|title }}</span>
+        {% endif %}
+      </p>
+      <p class="font-semibold">Description: <span class="text-gray-600">{{ ticket.description }}</span></p>
+    </div>
+  </div>
+
+  <!-- Chat Section -->
+  <div class="flex flex-col lg:flex-row gap-8 w-full lg:w-9/12 mt-10">
+
+    <!-- Replies Section -->
+    <div class="flex flex-col bg-white rounded-2xl shadow-md w-full lg:w-8/12 border border-gray-200">
+      <div class="bg-gray-100 rounded-t-2xl px-5 py-3 border-b border-gray-200">
+        <h2 class="text-xl font-bold text-gray-700">💬 Conversation</h2>
+      </div>
+
+      <div class="flex-1 overflow-y-auto px-5 py-5 space-y-4 max-h-[60vh] scroll-smooth">
+        {% for reply in replies %}
+          {% if reply.author.role='staff' %}
+          <!-- Admin Message -->
+          <div class="flex justify-end">
+            <div class="bg-blue-500 text-white rounded-2xl px-4 py-3 max-w-[75%] shadow-md">
+              <div class="flex justify-between items-center mb-1">
+                <p class="font-semibold text-sm">Admin</p>
+                <p class="text-xs text-gray-200">{{ reply.created_at|date:"d M Y, H:i" }}</p>
+              </div>
+              <p class="leading-snug">{{ reply.comment|linebreaksbr }}</p>
+            </div>
+          </div>
+          {% else %}
+          <!-- User Message -->
+          <div class="flex justify-start">
+            <div class="bg-green-100 text-gray-900 rounded-2xl px-4 py-3 max-w-[75%] shadow-sm">
+              <div class="flex justify-between items-center mb-1">
+                <p class="font-semibold text-sm">You</p>
+                <p class="text-xs text-gray-500">{{ reply.created_at|date:"d M Y, H:i" }}</p>
+              </div>
+              <p class="leading-snug">{{ reply.comment|linebreaksbr }}</p>
+            </div>
+          </div>
+          {% endif %}
+        {% empty %}
+          <p class="text-gray-500 text-center italic mt-4">No replies yet. Start the conversation below 👇</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Reply Form -->
+    <div class="flex flex-col bg-white border border-gray-200 rounded-2xl shadow-md w-full lg:w-4/12 p-6">
+      <h3 class="text-2xl font-bold text-center text-gray-800 mb-5">✍️ Add Your Reply</h3>
+
+      <form method="POST" class="space-y-3">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 transition-all text-white font-semibold py-2.5 rounded-lg shadow-md">
+          Send Reply
+        </button>
+      </form>
+
+      <a href="{% url 'userdashboard' %}"
+        class="text-center mt-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">
+        ← Back to Dashboard
+      </a>
+    </div>
+
+  </div>
+</div>
+{% endblock content %}

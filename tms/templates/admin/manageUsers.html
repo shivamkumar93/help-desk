@@ -1,25 +1,27 @@
 {% extends 'admin/adminbase.html' %}
 
 {% block content %}
-  <div class="flex flex-1 w-full mt-6 px-[5%]">
-    <table>
+  <div class="flex flex-1 mt-6 px-[5%]">
+    <table class=" w-full">
       <thead>
         <tr>
-          <th class="border border-gray-300 py-2 px-3 w-full">Id</th>
-          <th class="border border-gray-300 py-2 px-3 w-full">Username</th>
-          <th class="border border-gray-300 py-2 px-3 w-full">Email</th>
-          <th class="border border-gray-300 py-2 px-3 w-full">Action</th>
+          <th class="border border-gray-300 py-2 px-3">Id</th>
+          <th class="border border-gray-300 py-2 px-3">Username</th>
+          <th class="border border-gray-300 py-2 px-3">Email</th>
+          <th class="border border-gray-300 py-2 px-3">User Role</th>
+          <th class="border border-gray-300 py-2 px-3">Action</th>
         </tr>
       </thead>
       <tbody>
         
         {% for u in users %}
         <tr>
-          <td class="text-xl font-medium py-2 px-3 w-full border border-gray-300"> {{u.id}} </td>
-          <td class="text-xl font-medium py-2 px-3 w-full border border-gray-300">{{u.username}}</td>
-          <td class="text-xl font-medium py-2 px-3 w-full border border-gray-300">{{u.email}}</td>
-          <td class="text-xl font-medium py-2 px-3 w-full border border-gray-300">
-            <a href="">delete</a>
+          <td class="text-xl font-medium py-2 px-3  border border-gray-300"> {{u.id}} </td>
+          <td class="text-xl font-medium py-2 px-3  border border-gray-300">{{u.username}}</td>
+          <td class="text-xl font-medium py-2 px-3  border border-gray-300">{{u.email}}</td>
+          <td class="text-xl font-medium py-2 px-3  border border-gray-300">{{u.role}}</td>
+          <td class="text-md font-normal py-2 px-3  border border-gray-300">
+            <a href="" class="text-red-600">delete</a>
           </td>
         </tr>
         {% endfor %}

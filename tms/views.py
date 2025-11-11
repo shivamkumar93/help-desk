@@ -22,10 +22,9 @@ def custom_login(request):
         if user is not None:
             login(request, user)
             user = request.user
-            if user.role == 'admin':
+            if user.role == 'staff':
                 return redirect('admindashboard')
-            # elif user.role == 'user':
-            #     return redirect()
+           
             else:
                 return redirect('homepage')
     return render(request, 'login.html')

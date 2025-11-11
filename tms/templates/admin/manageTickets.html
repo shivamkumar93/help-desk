@@ -13,6 +13,7 @@
                 <th scope="col" class="px-6 py-3">Image</th>
                 <th scope="col" class="px-6 py-3">Status</th>
                 <th scope="col" class="px-6 py-3">Created_by</th>
+                <th scope="col" class="px-6 py-3">Assigned_to</th>
                
                 <th scope="col" class="px-6 py-3 text-right pr-[5%]">
                     Action
@@ -26,16 +27,27 @@
                     {{ ticket.id }}
                 </th>
                 <td class="px-6 py-3 text-sm">{{ticket.title}}</td>
-                <td class="px-6 py-3 text-sm">{{ url.ticket.image }}</td>
+                <td class="px-6 py-3 text-sm" >
+                    
+                    {% if ticket.image %}
+                    <img src=" {{ticket.image.url }}" alt=" image" class="size-28">
+                    {% else %}
+                    <p>No Image </p>
+                        
+                    {% endif %}
+                        
+
+                </td>
                 
                 <td class="px-6 py-3 text-sm"> {{ticket.status}} </td>
                 <td class="px-6 py-3 text-sm"> {{ticket.created_by}} </td>
+                <td class="px-6 py-3 text-sm"> {{ticket.assigned_to}} </td>
                 
 
                 <td class="px-6 py-3 text-right space-x-4">
                     <a href="{% url 'deleteticket' ticket.id %}"
                         class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
-                    <a href="#"
+                    <a href="{% url 'ticketreply' ticket.id %}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Agent</a>
                         
                         {% if ticket.status != 'closed' %}

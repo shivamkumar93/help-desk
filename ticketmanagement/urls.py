@@ -23,6 +23,7 @@ urlpatterns = [
     path("admin-user/", manage_user, name='manageuser'),
     path("admin-agent/", manage_agents, name='manageagent'),
     path("admin-reports/", manage_reports, name='managereport'),
+    path("admin-ticketreply/<int:ticket_id>/", ticketReply, name='ticketreply'),
 
     # user panel 
     path("user-insertTicket/", insertTicket, name='insertTicket'),
