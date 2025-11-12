@@ -21,6 +21,7 @@ urlpatterns = [
     path("admin-changeStatus/<int:id>/", change_status, name='changestatus'),
     path("admin-deleteTicket/<int:id>/", deleteTicket, name='deleteticket'),
     path("admin-user/", manage_user, name='manageuser'),
+    path("admin-deleteuser/<int:id>/", delete_user, name='deleteuser'),
     path("admin-agent/", manage_agents, name='manageagent'),
     path("admin-reports/", manage_reports, name='managereport'),
     path("admin-ticketreply/<int:ticket_id>/", ticketReply, name='ticketreply'),

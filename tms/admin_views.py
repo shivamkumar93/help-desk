@@ -3,11 +3,11 @@ from tms.models import *
 from tms.forms import *
 from django.contrib.auth.decorators import login_required, user_passes_test
 
-def is_superadmin_or_staff(user):
-    return user.is_authenticated and (user.role in ['superadmin', 'staff'])
+# def is_superadmin_or_staff(user):
+#     return user.is_authenticated and (user.role in ['superadmin', 'staff'])
 
 @login_required
-@user_passes_test(is_superadmin_or_staff, login_url='/homepage/')
+# @user_passes_test(is_superadmin_or_staff, login_url='/homepage/')
 def dashboard(request):
     count = {
         "users" : User.objects.count(),
@@ -30,8 +30,9 @@ def manage_user(request):
 @login_required
 #@user_passes_test(is_admin_or_staff, login_url='/homepage/')
 def manage_tickets(request):
-    tickets = TicketSupport.objects.all()
-    return render(request, "admin/manageTickets.html", {'tickets':tickets})
+    tickets = TicketSupport.objects.filter(status= 'open')
+    assigned_ticket = TicketSupport.objects.filter(assigned_to= request.user, status = 'in_progress')
+    return render(request, "admin/manageTickets.html", {'tickets':tickets, 'assigned_ticket':assigned_ticket})
 
 
 @login_required
@@ -39,6 +40,11 @@ def manage_tickets(request):
 def manage_agents(request):
     users = User.objects.all()
     return render(request, "admin/manageAgent.html",{'users':users})
+
+def delete_user(request, id):
+    item = User.objects.get(id=id)
+    item.delete()
+    return redirect('manageuser')
 
 
 @login_required
@@ -65,7 +71,7 @@ def deleteTicket(request, id):
 
 #ticket reply logic
 @login_required
-#@user_passes_test(is_admin_or_staff, login_url='/homepage/')
+#@user_passes_test(is_superadmin_or_staff, login_url='/homepage/')
 def ticketReply(request, ticket_id):
     ticket = get_object_or_404(TicketSupport, id=ticket_id)
     replies = ticket.comments.all().order_by('created_at')
@@ -79,6 +85,6 @@ def ticketReply(request, ticket_id):
             ticket.status = 'in_progress'
             ticket.assigned_to = request.user
             ticket.save()
-            return redirect(ticketReply, ticket_id=ticket.id)
-
+            return redirect('ticketreply', ticket_id=ticket.id)
+    
     return render(request, 'admin/ticketreply.html',{'ticket':ticket,'replies':replies, 'form':form})

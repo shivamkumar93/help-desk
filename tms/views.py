@@ -4,6 +4,9 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 def homepage(request):
+    if request.user.is_authenticated:
+        if request.user.role == 'staff':
+            logout(request)
     return render(request, 'home.html')
 
 def register(request):

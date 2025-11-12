@@ -5,39 +5,48 @@
     <div class="flex flex-col  w-9/12 ">
 
 
-        <h2 class="text-4xl font-semibold ">My raise ticket</h2>
-        <div class="flex flex-col  mt-3 space-y-1 w-full">
+        <div class="flex flex-col  mt-3 space-y-1 w-full border border-gray-200 shadow-lg p-5 rounded-lg">
+            <h2 class="text-3xl font-bold ">My raise ticket</h2>
+            <hr>
             <h4 class=" font-semibold">Title : <span class="text-gray-600">{{ticket.title}}</span></h4>
-            <p class=" font-semibold">Status : <span class="text-gray-600">{{ticket.status}}</span></p>
+            <p class=" font-semibold">Status : <span class="text-yellow-600">{{ticket.status}}</span></p>
             <p class=" font-semibold">Description : <span class="text-gray-600">{{ticket.description}}</span></p>
         </div>
-        <hr class="mt-2">
-        <div class="flex flex-col mt-5">
-            <h2 class="text-xl font-bold mb-2">Reply</h2>
-            <div class="flex-1  px-5 py-3 space-y-4">
-                {% for reply in replies %}
-                {% if reply.author.is_staff %}
-                <!-- Admin Message -->
-                <div class="flex justify-start">
-                    <div class="bg-blue-500 text-white rounded-2xl px-4 py-2 max-w-[70%] shadow">
-                        <p class="font-semibold text-sm text-black mb-1">Admin</p>
-                        <p>{{ reply.comment }}</p>
-                        <p class="text-xs text-gray-200 mt-1 text-right">{{ reply.created_at|date:"d M Y H:i" }}</p>
-                    </div>
+        
+        <div class="flex flex-col mt-5 border border-gray-300 rounded-t-xl shadow-md ">
+            <h2 class="text-xl font-bold bg-gray-200  rounded-t-xl p-5 mb-2">Reply</h2>
+            {% for reply in replies %}
+            {% if reply.author.role == 'superadmin' or reply.author.is_superuser %}
+            <!-- SuperAdmin Reply -->
+            <div class="flex justify-end px-4 mt-1 w-full">
+                <div class="bg-purple-600 text-white rounded-xl px-4 py-2 ">
+                    <p class="font-semibold text-sm mb-1">SuperAdmin</p>
+                    <p>{{ reply.comment|linebreaksbr }}</p>
+                    <p class="text-xs text-gray-200 mt-1 text-right">{{ reply.created_at|date:"d M Y H:i" }}</p>
                 </div>
-                {% else %}
-                <!-- User Message -->
-                <div class="flex justify-end">
-                    <div class="bg-green-100 text-gray-900 rounded-2xl px-4 py-2 ">
-                        <p class="font-semibold text-sm text-black mb-1">You</p>
-                        <p class="text-gray-500">{{ reply.comment }}</p>
-                        <p class="text-xs text-gray-500 mt-1 text-right">{{ reply.created_at|date:"d M Y H:i" }}</p>
-                    </div>
-                </div>
-                {% endif %}
-
-                {% endfor %}
             </div>
+
+            {% elif reply.author.role == 'staff' %}
+            <!-- Staff Reply -->
+             <div class="flex justify-end px-4 mt-1 mb-5 ">
+                <div class="bg-blue-600 text-white rounded-xl px-4 py-2 ">
+                    <p class="font-semibold text-sm mb-1">Staff ({{reply.author.username}})</p>
+                    <p>{{ reply.comment|linebreaksbr }}</p>
+                    <p class="text-xs text-gray-200 mt-1 text-right">{{ reply.created_at|date:"d M Y H:i" }}</p>
+                </div>
+            </div>
+
+            {% else %}
+            <!-- Normal User Reply -->
+            <div class="flex justify-start px-4 mt-1 mb-5">
+                <div class="bg-green-100 text-gray-900 rounded-xl px-4 py-2">
+                    <p class="font-semibold text-sm mb-1"> Customer</p>
+                    <p>{{ reply.comment|linebreaksbr }}</p>
+                    <p class="text-xs text-gray-500 mt-1 text-right">{{ reply.created_at|date:"d M Y H:i" }}</p>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
 
         </div>
     </div>
@@ -47,10 +56,12 @@
         <form method="POST">
             {% csrf_token %}
             {{ form|crispy }}
-            <button type="submit" class="text-center bg-blue-500 py-2 px-3 border w-full rounded text-white">Send Reply</button>
+            <button type="submit" class="text-center bg-blue-500 py-2 px-3 border w-full rounded text-white">Send
+                Reply</button>
         </form>
 
-        <a href="{% url 'userdashboard' %}" class="text-center px-4 py-2 bg-green-100 mt-5"> Back to My Tickets DashBoard</a>
+        <a href="{% url 'userdashboard' %}" class="text-center px-4 py-2 bg-green-100 mt-5"> Back to My Tickets
+            DashBoard</a>
     </div>
 </div>
 
