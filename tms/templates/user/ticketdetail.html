@@ -25,7 +25,7 @@
                     <p class="text-xs text-gray-200 mt-1 text-right">{{ reply.created_at|date:"d M Y H:i" }}</p>
                 </div>
             </div>
-
+            
             {% elif reply.author.role == 'staff' %}
             <!-- Staff Reply -->
              <div class="flex justify-end px-4 mt-1 mb-5 ">
@@ -53,12 +53,15 @@
 
     <div class="flex-col flex w-3/12 mt-5">
         <h3 class="text-2xl font-bold text-center"> Add Your Reply</h3>
+        
+        {% if ticket.status != 'closed' %}   
         <form method="POST">
             {% csrf_token %}
             {{ form|crispy }}
             <button type="submit" class="text-center bg-blue-500 py-2 px-3 border w-full rounded text-white">Send
                 Reply</button>
         </form>
+         {% endif %}
 
         <a href="{% url 'userdashboard' %}" class="text-center px-4 py-2 bg-green-100 mt-5"> Back to My Tickets
             DashBoard</a>

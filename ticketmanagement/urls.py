@@ -31,6 +31,12 @@ urlpatterns = [
     path("user-dashboard/", userDashboard, name='userdashboard'),
     path("user-ticketdetail/<int:ticket_id>/", ticketDetail, name='ticketdetail'),
 
+    # Staff urls
+    path('staff-dashboard/', staff_dashboard, name='staffdashboard'),
+    path('staff-user/', manage_staff, name='managestaffuser'),
+    path('staff-userticket/', managestaff_ticket, name='staffticket'),
+    path('staff-replycomment<int:id>/', replyComment, name='replycomment'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

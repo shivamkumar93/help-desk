@@ -1,40 +1,44 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from tms.forms import *
+from tms.models import*
 
-def insertTicket(request):
-    form = SupportTicketForm(request.POST or None, request.FILES or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            ticket = form.save(commit = False)
-            ticket.created_by = request.user
-            ticket.status = 'open'
-            ticket.save()
-            return redirect(userDashboard)
-    return render(request, 'user/insertTickets.html', {'form':form})
-
-def userDashboard(request):
+def staff_dashboard(request):
     count = {
-        "open_ticket" : TicketSupport.objects.filter(status = 'open', created_by = request.user).count(),
-        "close_ticket" : TicketSupport.objects.filter(status = 'closed', created_by = request.user).count(),
-        "in_process" : TicketSupport.objects.filter(status = 'in_progress', created_by = request.user).count(),
-        "tickets" : TicketSupport.objects.filter(created_by=request.user)
+        "open_ticket" : TicketSupport.objects.filter(status = 'open').count(),
+        "close_ticket" : TicketSupport.objects.filter(status = 'closed').count(),
+        "in_process" : TicketSupport.objects.filter(status = 'in_progress').count(),
+        "tickets" : TicketSupport.objects.count(),
+        "users" : User.objects.filter(role = 'staff').count()
 
     }
-    return render(request, 'user/userdashboard.html', count)
+    return render(request, 'staff/staffdashboard.html', {'count':count})
 
-def ticketDetail(request, ticket_id):
-    ticket = get_object_or_404(TicketSupport, id=ticket_id, created_by = request.user)
+def manage_staff(request):
+    return render(request, 'staff/managestaff.html')
+
+def managestaff_ticket(request):
+    tickets = TicketSupport.objects.filter(status = 'open')
+    assigned_ticket = TicketSupport.objects.filter(assigned_to= request.user, status = 'in_progress')
+
+    return render(request, 'staff/ticketsmanage.html',{'tickets':tickets, 'assigned_ticket':assigned_ticket} )
+
+def replyComment(request, id):
+    ticket = get_object_or_404(TicketSupport, id=id)
     replies = ticket.comments.all().order_by('created_at')
     form = TicketCommentForm(request.POST or None)
-
     if request.method == 'POST':
         if form.is_valid():
-            reply = form.save(commit=False)
-            reply.ticket = ticket
-            reply.author = request.user
-            reply.save()
-            ticket.status = 'in_progress'
-            ticket.save()
-            return redirect(ticketDetail, ticket_id=ticket.id)
+            comment = form.save(commit=False)
+            comment.ticket = ticket
+            comment.author = request.user
+            comment.save()
+            
+            if request.user.role == 'staff' or request.user.is_superuser:
+                if ticket.assigned_to is None:
+                    ticket.assigned_to = request.user
+                if ticket.status != 'in_progress':
+                    ticket.status = 'in_progress'
+                ticket.save()
+            return redirect('replycomment', id=ticket.id)
+    return render(request, 'staff/replycomment.html', {'ticket':ticket, 'replies':replies, 'form':form})
 
-    return render(request, 'user/ticketdetail.html', {'ticket':ticket, 'replies':replies, 'form':form})

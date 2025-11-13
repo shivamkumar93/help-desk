@@ -1,7 +1,7 @@
 {% extends 'admin/adminbase.html' %}
 
 {% block content %}
-  <div class="flex flex-1 justify-between items-center px-6">
+<div class="flex flex-1 justify-between items-center px-6">
     <h2 class="text-2xl font-semibold ">Manage all open Tickets </h2>
 </div>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-6 mt-5">
@@ -14,7 +14,7 @@
                 <th scope="col" class="px-6 py-3">Status</th>
                 <th scope="col" class="px-6 py-3">Created_by</th>
                 <th scope="col" class="px-6 py-3">Assigned_to</th>
-               
+
                 <th scope="col" class="px-6 py-3 text-right pr-[5%]">
                     Action
                 </th>
@@ -27,47 +27,47 @@
                     {{ ticket.id }}
                 </th>
                 <td class="px-6 py-3 text-sm">{{ticket.title}}</td>
-                <td class="px-6 py-3 text-sm" >
-                    
+                <td class="px-6 py-3 text-sm">
+
                     {% if ticket.image %}
                     <img src=" {{ticket.image.url }}" alt=" image" class="size-28">
                     {% else %}
                     <p>No Image </p>
-                        
+
                     {% endif %}
-                        
+
 
                 </td>
-                
+
                 <td class="px-6 py-3 text-sm"> {{ticket.status}} </td>
                 <td class="px-6 py-3 text-sm"> {{ticket.created_by}} </td>
                 <td class="px-6 py-3 text-sm"> {{ticket.assigned_to}} </td>
-                
+
 
                 <td class="px-6 py-3 text-right space-x-4">
                     <a href="{% url 'deleteticket' ticket.id %}"
                         class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                     <a href="{% url 'ticketreply' ticket.id %}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Agent</a>
-                        
-                        {% if ticket.status != 'closed' %}
-                            
+
+                    {% if ticket.status != 'closed' %}
+
                     <a href="{% url 'changestatus' ticket.id %}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">closed</a>
-                         {% endif %}
+                    {% endif %}
                 </td>
             </tr>
             {% empty %}
             <tr>
                 <td colspan="3" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-                    No Tickets Available 
+                    No Tickets Available
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-<h2 class="text-2xl font-bold mt-5 px-6">Staff assigned ticket</h2>
+<!-- <h2 class="text-2xl font-bold mt-5 px-6">Staff assigned ticket</h2>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-6 mt-5">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -78,7 +78,7 @@
                 <th scope="col" class="px-6 py-3">Status</th>
                 <th scope="col" class="px-6 py-3">Created_by</th>
                 <th scope="col" class="px-6 py-3">Assigned_to</th>
-               
+
                 <th scope="col" class="px-6 py-3 text-right pr-[5%]">
                     Action
                 </th>
@@ -91,44 +91,44 @@
                     {{ agent.id }}
                 </th>
                 <td class="px-6 py-3 text-sm">{{agent.title}}</td>
-                <td class="px-6 py-3 text-sm" >
-                    
+                <td class="px-6 py-3 text-sm">
+
                     {% if ticket.image %}
                     <img src=" {{agent.image.url }}" alt=" image" class="size-28">
                     {% else %}
                     <p>No Image </p>
-                        
+
                     {% endif %}
-                        
+
 
                 </td>
-                
+
                 <td class="px-6 py-3 text-sm"> {{agent.status}} </td>
                 <td class="px-6 py-3 text-sm"> {{agent.created_by}} </td>
                 <td class="px-6 py-3 text-sm"> {{agent.assigned_to}} </td>
-                
+
 
                 <td class="px-6 py-3 text-right space-x-4">
                     <a href="{% url 'deleteticket' agent.id %}"
                         class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                     <a href="{% url 'ticketreply' agent.id %}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Agent</a>
-                        
-                        {% if ticket.status != 'closed' %}
-                            
+
+                    {% if ticket.status != 'closed' %}
+
                     <a href="{% url 'changestatus' agent.id %}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">closed</a>
-                         {% endif %}
+                    {% endif %}
                 </td>
             </tr>
             {% empty %}
             <tr>
                 <td colspan="3" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-                    No assigned any tickets 
+                    No assigned any tickets
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-</div>
-{% endblock  %}
+</div> -->
+{% endblock %}
