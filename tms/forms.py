@@ -4,10 +4,12 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
 class RegisterForm(UserCreationForm):
-    role = forms.ChoiceField(choices=User.ROLE_CHOICES)
+    role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES)
+    email = forms.EmailField(required=True)
+
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['username', 'email', 'role', 'password1', 'password2']
     
 

@@ -4,4 +4,4 @@ from tms.models import *
 admin.site.register(TicketSupport)
 admin.site.register(CommentTicket)
 #admin.site.register(AttachmentTicket)
-admin.site.register(User)
+admin.site.register(CustomUser)

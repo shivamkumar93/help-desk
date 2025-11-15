@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tms',
+    'tms.apps.TmsConfig',
     "crispy_forms",
     "crispy_tailwind",
 ]
@@ -117,7 +117,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'tms.User'
+AUTH_USER_MODEL = 'tms.CustomUser'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR/'media'
+
+
+# email configrutation 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'bcashivam11@gmail.com'   # Your Gmail
+EMAIL_HOST_PASSWORD = 'mflyfceuelvjgnam'   # App Password (NOT Gmail login password)
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
