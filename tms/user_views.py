@@ -8,7 +8,7 @@ def staff_dashboard(request):
         "close_ticket" : TicketSupport.objects.filter(status = 'closed').count(),
         "in_process" : TicketSupport.objects.filter(status = 'in_progress').count(),
         "tickets" : TicketSupport.objects.count(),
-        "users" : User.objects.filter(role = 'staff').count()
+        "users" : CustomUser.objects.filter(role = 'staff').count()
 
     }
     return render(request, 'staff/staffdashboard.html', {'count':count})

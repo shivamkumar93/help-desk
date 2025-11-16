@@ -27,6 +27,7 @@ def custom_login(request):
             user = request.user
             if user.role == 'staff':
                 return redirect('staffdashboard')
+            
            
             else:
                 return redirect('homepage')

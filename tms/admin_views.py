@@ -10,10 +10,10 @@ def is_superadmin(user):
 @user_passes_test(is_superadmin, login_url='/homepage/',)
 def dashboard(request):
     count = {
-        "users" : User.objects.count(),
+        "users" : CustomUser.objects.count(),
         "tickets" : TicketSupport.objects.count(),
         "replay" : CommentTicket.objects.count(),
-        "agents" : User.objects.filter(role = "staff").count(),
+        "agents" : CustomUser.objects.filter(role = "staff").count(),
         "resloved_tickets" : TicketSupport.objects.filter(status = "closed").count()
     }
 
@@ -22,7 +22,7 @@ def dashboard(request):
 @login_required
 @user_passes_test(is_superadmin, login_url='/homepage/',)
 def manage_user(request):
-    users = User.objects.filter(is_superuser = False)
+    users = CustomUser.objects.filter(is_superuser = False)
     
     return render(request, 'admin/manageUsers.html', {'users': users})
 
@@ -37,11 +37,11 @@ def manage_tickets(request):
 @login_required
 @user_passes_test(is_superadmin, login_url='/homepage/',)
 def manage_agents(request):
-    users = User.objects.all()
+    users = CustomUser.objects.all()
     return render(request, "admin/manageAgent.html",{'users':users})
 
 def delete_user(request, id):
-    item = User.objects.get(id=id)
+    item = CustomUser.objects.get(id=id)
     item.delete()
     return redirect('manageuser')
 
