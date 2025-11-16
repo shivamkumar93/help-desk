@@ -24,7 +24,7 @@
                 <td class="text-lg font-normal shadow py-2 px-4">{{ticket.status}}</td>
                 <td class="text-lg font-normal shadow py-2 px-4 gap-5 flex justify-evenly">
                     <a href="{% url 'replycomment' ticket.id %}" class="text-blue-700 hover:underline">view</a>
-                    <a href="" class="text-red-700 hover:underline">closed</a>
+                    <a href="{% url 'closedticket' ticket.id %}" class="text-red-700 hover:underline">closed</a>
                 </td>
             </tr>  
             {% endfor %}
@@ -53,7 +53,7 @@
                 <td class="text-lg font-normal shadow py-2 px-4">{{assigned.status}}</td>
                 <td class="text-lg font-normal shadow py-2 px-4 gap-5 flex justify-evenly">
                     <a href="{% url 'replycomment' assigned.id %}" class="text-blue-700 hover:underline">view</a>
-                    <a href="" class="text-red-700 hover:underline">closed</a>
+                    <a href="{% url 'closedticket' assigned.id %}" class="text-red-700 hover:underline">closed</a>
                 </td>
             </tr>  
             {% endfor %}

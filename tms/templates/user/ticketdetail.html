@@ -54,7 +54,7 @@
     <div class="flex-col flex w-3/12 mt-5">
         <h3 class="text-2xl font-bold text-center"> Add Your Reply</h3>
         
-        {% if ticket.status != 'closed' %}   
+        {% if ticket.status != 'open' and ticket.status != 'closed' %}   
         <form method="POST">
             {% csrf_token %}
             {{ form|crispy }}

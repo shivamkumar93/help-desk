@@ -12,9 +12,9 @@ def homepage(request):
 def register(request):
     form = RegisterForm(request.POST or None)
     if request.method == 'POST':
-        form.is_valid()
-        form.save()
-        return redirect('login')
+        if form.is_valid():
+            form.save()
+            return redirect('login')
     return render(request, "register.html", {"form":form})
 
 def custom_login(request):

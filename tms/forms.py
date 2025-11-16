@@ -11,6 +11,13 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'role', 'password1', 'password2']
+
+        def clean_email(self):
+            email = self.cleaned_data.get("email")
+
+            if not email.endswith("@gmail.com"):
+                raise forms.ValidationError("Only email account are allowed.")
+            return email
     
 
 class SupportTicketForm(ModelForm):

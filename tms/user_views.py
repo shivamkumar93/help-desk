@@ -42,3 +42,9 @@ def replyComment(request, id):
             return redirect('replycomment', id=ticket.id)
     return render(request, 'staff/replycomment.html', {'ticket':ticket, 'replies':replies, 'form':form})
 
+def closed_ticket(request, id):
+    ticket = TicketSupport.objects.get(id=id)
+    ticket.status = 'closed'
+    ticket.save()
+    return redirect('staffticket')
+

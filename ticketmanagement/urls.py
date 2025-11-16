@@ -36,6 +36,7 @@ urlpatterns = [
     path('staff-user/', manage_staff, name='managestaffuser'),
     path('staff-userticket/', managestaff_ticket, name='staffticket'),
     path('staff-replycomment<int:id>/', replyComment, name='replycomment'),
+    path('staff-closedTicket<int:id>/', closed_ticket, name='closedticket'),
 
 ]
 
