@@ -22,7 +22,7 @@ def dashboard(request):
 @login_required
 @user_passes_test(is_superadmin, login_url='/homepage/',)
 def manage_user(request):
-    users = CustomUser.objects.filter(is_superuser = False)
+    users = CustomUser.objects.filter(role = 'user')
     
     return render(request, 'admin/manageUsers.html', {'users': users})
 
@@ -30,8 +30,10 @@ def manage_user(request):
 @login_required
 @user_passes_test(is_superadmin, login_url='/homepage/',)
 def manage_tickets(request):
-    tickets = TicketSupport.objects.all()
-    return render(request, "admin/manageTickets.html", {'tickets':tickets})
+    tickets = TicketSupport.objects.filter(status='open')
+    assigned_ticket = TicketSupport.objects.filter(status='in_progress')
+    closed_ticket = TicketSupport.objects.filter(status='closed')
+    return render(request, "admin/manageTickets.html", {'tickets':tickets, "assigned_ticket":assigned_ticket, "closed_ticket":closed_ticket})
 
 
 @login_required
@@ -91,3 +93,16 @@ def ticketReply(request, ticket_id):
             return redirect('ticketreply', ticket_id=ticket.id)
     
     return render(request, 'admin/ticketreply.html',{'ticket':ticket,'replies':replies, 'form':form})
+
+def assigned_ticket(request, ticket_id):
+    ticket = get_object_or_404(TicketSupport, id=ticket_id)
+    form = AssignedTicketForm(request.POST or None, instance=ticket)
+
+    form.fields['assigned_to'].queryset = CustomUser.objects.filter(role='staff')
+    if request.method == 'POST':
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.status = 'in_progress'
+            data.save()
+            return redirect('manageticket')
+    return render(request, 'admin/assignTicket.html',{'form':form})

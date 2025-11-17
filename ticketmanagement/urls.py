@@ -18,6 +18,7 @@ urlpatterns = [
     # admin urls
     path('admindashboard/', dashboard, name='admindashboard'),
     path("admin-ticket/", manage_tickets, name='manageticket'),
+    path("admin-assignticket/<int:ticket_id>/", assigned_ticket, name='assignticket'),
     path("admin-changeStatus/<int:id>/", change_status, name='changestatus'),
     path("admin-deleteTicket/<int:id>/", deleteTicket, name='deleteticket'),
     path("admin-user/", manage_user, name='manageuser'),

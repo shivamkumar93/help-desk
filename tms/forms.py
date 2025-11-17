@@ -30,6 +30,11 @@ class TicketCommentForm(ModelForm):
         model = CommentTicket
         fields = ['comment']
 
+class AssignedTicketForm(ModelForm):
+    class Meta:
+        model = TicketSupport
+        fields = ['assigned_to']
+
 # class TicketAttachmentForm(ModelForm):
 #     class Meta:
 #         model = AttachmentTicket
