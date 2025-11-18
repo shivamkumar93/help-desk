@@ -1,21 +1,32 @@
 {% extends 'base.html' %}
-{% load tailwind_filters %}
+<!-- {% load tailwind_filters %} -->
+{% load widget_tweaks %}
 {% block content %}
 
-<div class="flex w-full min-h-screen items-center justify-center bg-gray-100">
+<div class="flex w-full h-screen items-center justify-center bg-gray-100">
         <div class="flex flex-col px-10 py-8 bg-white shadow-lg rounded-lg w-full max-w-md">
-            <h1 class="text-2xl font-bold text-center mb-8">Register Here</h1>
-
+            
             <form action="" method="post" class="flex flex-col">
                 {% csrf_token %}
-                    {{form|crispy}}
+                <h1 class="text-2xl font-bold text-center mb-8">Register Here</h1>
+                    <label for="" class="font-semibold">Username</label>
+                    {{form.username|add_class:"w-full border rounded p-2 mb-3"}}
+
+                    <label for="" class="font-semibold">Email</label>
+                    {{form.email|add_class:"w-full border p-2 rounded mb-3"}}
+
+                    <label for="" class="font-semibold">Password</label>
+                    {{form.password1|add_class:"w-full border rounded p-2 mb-3"}}
+                    
+                    <label for="" class="font-semibold">Conform Password</label>
+                    {{form.password2|add_class:"w-full border rounded p-2 mb-3"}}
 
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded ">
                     Register
                 </button>
             </form>
             <div class="flex mt-5">
-                <a href="" class="">Already have an account</a>
+                <p> Already have an account <a href="{% url 'login' %}" class="text-lg font-semibold text-green-700 underline" >  Login</a></p>
             </div>
         </div>
     </div>

@@ -1,6 +1,10 @@
 {% extends 'admin/adminbase.html' %}
 
 {% block content %}
+<div class="mt-6 px-[5%] justify-end flex">
+
+  <a href="" class=" text-md font-medium bg-blue-600 p-2 border rounded text-white hover:bg-blue-800">Create new agent</a>
+</div>
   <div class="flex flex-1 mt-6 px-[5%]">
     <table class=" w-full">
       <thead>
@@ -9,6 +13,7 @@
           <th class="border border-gray-300 py-2 px-3">Username</th>
           <th class="border border-gray-300 py-2 px-3">Email</th>
           <th class="border border-gray-300 py-2 px-3">User Role</th>
+          <th class="border border-gray-300 py-2 px-3">Status</th>
           <th class="border border-gray-300 py-2 px-3">Action</th>
         </tr>
       </thead>
@@ -17,12 +22,15 @@
         {% for u in users %}
         {% if u.role != 'user' %}
         <tr>
-          <td class="text-xl font-medium py-2 px-3  border border-gray-300"> {{u.id}} </td>
-          <td class="text-xl font-medium py-2 px-3  border border-gray-300">{{u.username}}</td>
-          <td class="text-xl font-medium py-2 px-3  border border-gray-300">{{u.email}}</td>
-          <td class="text-xl font-medium py-2 px-3  border border-gray-300">{{u.role}}</td>
+          <td class="text-lg font-normal py-2 px-3  border border-gray-300"> {{u.id}} </td>
+          <td class="text-lg font-normal py-2 px-3  border border-gray-300">{{u.username}}</td>
+          <td class="text-lg font-normal py-2 px-3  border border-gray-300">{{u.email}}</td>
+          <td class="text-lg font-normal py-2 px-3  border border-gray-300">{{u.role}}</td>
           <td class="text-md font-normal py-2 px-3  border border-gray-300">
-            <a href="{% url 'deleteuser' u.id %}" class="text-red-600">delete</a>
+            <a href=" " class="text-green-600 text-md">Active</a>
+          </td>
+          <td class="text-md font-normal py-2 px-3 border border-gray-300 text-center">
+            <a href="" class="bg-blue-600 text-white font-normal px-2 py-1 rounded">view</a>
           </td>
         </tr>
         {% endif %}

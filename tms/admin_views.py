@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from tms.models import *
 from tms.forms import *
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.forms import UserCreationForm
 
 def is_superadmin(user):
     return user.is_authenticated and user.is_superuser  # ya user.role == 'superadmin'
@@ -21,9 +22,9 @@ def dashboard(request):
 
 @login_required
 @user_passes_test(is_superadmin, login_url='/homepage/',)
+
 def manage_user(request):
     users = CustomUser.objects.filter(role = 'user')
-    
     return render(request, 'admin/manageUsers.html', {'users': users})
 
 # all ticket manage 
@@ -37,11 +38,13 @@ def manage_tickets(request):
 
 
 @login_required
+# manage all staff
 @user_passes_test(is_superadmin, login_url='/homepage/',)
 def manage_agents(request):
-    users = CustomUser.objects.all()
+    users = CustomUser.objects.filter(role='staff')
     return render(request, "admin/manageAgent.html",{'users':users})
 
+# delete users
 def delete_user(request, id):
     item = CustomUser.objects.get(id=id)
     item.delete()
@@ -94,6 +97,8 @@ def ticketReply(request, ticket_id):
     
     return render(request, 'admin/ticketreply.html',{'ticket':ticket,'replies':replies, 'form':form})
 
+@login_required
+@user_passes_test(is_superadmin, login_url='/homepage/')
 def assigned_ticket(request, ticket_id):
     ticket = get_object_or_404(TicketSupport, id=ticket_id)
     form = AssignedTicketForm(request.POST or None, instance=ticket)
@@ -106,3 +111,17 @@ def assigned_ticket(request, ticket_id):
             data.save()
             return redirect('manageticket')
     return render(request, 'admin/assignTicket.html',{'form':form})
+
+
+# Create  Agent
+@login_required
+@user_passes_test(is_superadmin, login_url='/homepage/')
+def create_agent(request):
+    form = RegisterForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.role = 'staff'
+            user.save()
+            return redirect('manageagent')
+    return render(request, 'admin/createAgent.html', {'form':form})

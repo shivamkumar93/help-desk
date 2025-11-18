@@ -24,6 +24,7 @@ urlpatterns = [
     path("admin-user/", manage_user, name='manageuser'),
     path("admin-deleteuser/<int:id>/", delete_user, name='deleteuser'),
     path("admin-agent/", manage_agents, name='manageagent'),
+    path("admin-createagent/", create_agent, name='createagent'),
     path("admin-reports/", manage_reports, name='managereport'),
     path("admin-ticketreply/<int:ticket_id>/", ticketReply, name='ticketreply'),
 

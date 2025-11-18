@@ -4,13 +4,11 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
 class RegisterForm(UserCreationForm):
-    role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES)
+    # role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES)
     email = forms.EmailField(required=True)
-
-
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'role', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2']
 
         def clean_email(self):
             email = self.cleaned_data.get("email")
