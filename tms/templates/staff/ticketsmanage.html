@@ -31,7 +31,7 @@
                
         </tbody>
     </table>
-    <h2 class="text-2xl font-bold text-gray-700 mb-2"> Assigned ticket</h2>
+    <h2 class="text-xl font-bold text-gray-700 mt-3 mb-2"> Assigned ticket</h2>
     <table class="border shadow">
         <!-- <thead>
             <tr>
@@ -54,6 +54,41 @@
                 <td class="text-lg font-normal shadow py-2 px-4 gap-5 flex justify-evenly">
                     <a href="{% url 'replycomment' assigned.id %}" class="text-blue-700 hover:underline">view</a>
                     <a href="{% url 'closedticket' assigned.id %}" class="text-red-700 hover:underline">closed</a>
+                </td>
+            </tr>  
+            {% endfor %}
+               
+        </tbody>
+    </table>
+
+    <h2 class="text-xl font-bold text-gray-700 mt-3 mb-2"> closed ticket</h2>
+    <table class="border shadow">
+        <!-- <thead>
+            <tr>
+                <th class="text-xl font-semibold shadow py-2 px-4 rounded">Id</th>
+                <th class="text-xl font-semibold shadow py-2 px-4 rounded">Title</th>
+                <th class="text-xl font-semibold shadow py-2 px-4 rounded">Description</th>
+                <th class="text-xl font-semibold shadow py-2 px-4 rounded">Status</th>
+                <th class="text-xl font-semibold shadow py-2 px-4 rounded">Action</th>
+            </tr>
+        </thead>
+        <tbody> -->
+            
+            {% for close in closed_ticket %}
+            
+            <tr >
+                <td class="text-lg font-normal shadow py-2 px-4">{{close.id}}</td>
+                <td class="text-lg font-normal shadow py-2 px-4">{{close.title}}</td>
+                <td class="text-lg font-normal shadow py-2 px-4">{{close.description}}</td>
+                <td class="text-lg font-normal shadow py-2 px-4">{{close.status}}</td>
+                <td class="text-lg font-normal shadow py-2 px-4 gap-5 flex justify-evenly">
+                    <a href="{% url 'replycomment' close.id %}" class="text-blue-700 hover:underline">view</a>
+                    
+                    {% if ticket.status == 'close' %}
+                        
+                    <a href="{% url 'closedticket' close.id %}" class="text-red-700 hover:underline">closed</a>
+                    {% endif %}
+                        
                 </td>
             </tr>  
             {% endfor %}

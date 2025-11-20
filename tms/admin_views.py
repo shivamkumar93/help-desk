@@ -125,3 +125,20 @@ def create_agent(request):
             user.save()
             return redirect('manageagent')
     return render(request, 'admin/createAgent.html', {'form':form})
+
+def view_Staffdetails(request, ticket_id):
+    staff = CustomUser.objects.get(id=ticket_id)
+    contex = {
+            "staff":staff,
+            "assigned_ticket" : TicketSupport.objects.filter(assigned_to = staff, status = 'in_progress'),
+            "closed_ticket" : TicketSupport.objects.filter(assigned_to = staff, status = 'closed')
+    }
+    return render(request, 'admin/viewstaffdetail.html', contex)
+
+def view_Userdetails(request, ticket_id):
+    customer = CustomUser.objects.get(id=ticket_id)
+    context = {
+        "customer":customer,
+        "tickets" : TicketSupport.objects.filter(created_by=customer)
+    }
+    return render(request, 'admin/viewuserdetail.html', context)

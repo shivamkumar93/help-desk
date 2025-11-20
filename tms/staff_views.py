@@ -17,10 +17,12 @@ def manage_staff(request):
     return render(request, 'staff/managestaff.html')
 
 def managestaff_ticket(request):
+    
     tickets = TicketSupport.objects.filter(status = 'open')
-    assigned_ticket = TicketSupport.objects.filter(assigned_to= request.user, status = 'in_progress')
+    assigned_ticket = TicketSupport.objects.filter(assigned_to=request.user, status = 'in_progress')
+    closed_ticket = TicketSupport.objects.filter(assigned_to=request.user, status = 'closed')
 
-    return render(request, 'staff/ticketsmanage.html',{'tickets':tickets, 'assigned_ticket':assigned_ticket} )
+    return render(request, 'staff/ticketsmanage.html',{'tickets':tickets, 'assigned_ticket':assigned_ticket, 'closed_ticket':closed_ticket} )
 
 def replyComment(request, id):
     ticket = get_object_or_404(TicketSupport, id=id)

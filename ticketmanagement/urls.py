@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from tms.views import *
 from tms.admin_views import *
-from tms.user_views import *
+from tms.staff_views import *
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -22,8 +22,10 @@ urlpatterns = [
     path("admin-changeStatus/<int:id>/", change_status, name='changestatus'),
     path("admin-deleteTicket/<int:id>/", deleteTicket, name='deleteticket'),
     path("admin-user/", manage_user, name='manageuser'),
+    path("admin-userdetails<int:ticket_id>/", view_Userdetails, name='userdetails'),
     path("admin-deleteuser/<int:id>/", delete_user, name='deleteuser'),
     path("admin-agent/", manage_agents, name='manageagent'),
+    path("admin-viewagentdetails/<int:ticket_id>/", view_Staffdetails, name='viewstaffdetails'),
     path("admin-createagent/", create_agent, name='createagent'),
     path("admin-reports/", manage_reports, name='managereport'),
     path("admin-ticketreply/<int:ticket_id>/", ticketReply, name='ticketreply'),

@@ -1,0 +1,112 @@
+{% extends 'admin/adminbase.html' %}
+
+{% block content %}
+
+<div class="flex flex-col w-full px-[7%] mt-3">
+    <div class="flex flex-col bg-white shadow-lg w-full py-5 ">
+        <h1 class="text-2xl font-semibold text-center mb-1">Staff Details</h1>
+        <hr>
+        <p class="text-lg font-medium border-b px-10">Username :<span class="font-normal text-gray-500 text-md">
+                {{staff.username}}</span></p>
+        <p class="text-lg font-medium border-b px-10">Email :<span class="font-normal text-gray-500 text-md">
+                {{staff.email}}</span></p>
+        <p class="text-lg font-medium border-b px-10">Joined_date :<span class="font-normal text-gray-500 text-md">
+                {{staff.date_joined}}</span></p>
+        <p class="text-lg font-medium border-b px-10">Last login :<span class="font-normal text-gray-500 text-md">
+                {{staff.last_login}}</span></p>
+    </div>
+
+    <div class="mt-10 flex flex-col">
+        <h2 class="text-xl font-semibold mt-5 px-6">Total assigned tickets</h2>
+        <div class="bg-white shadow-lg rounded-lg mt-2">
+            <table class="w-full border-collapse">
+                <thead class="bg-gray-100 ">
+                    <tr>
+                        <th class="text-lg font-semibold p-3 border">ID</th>
+                        <th class="text-lg font-semibold p-3 border">Title</th>
+                        <th class="text-lg font-semibold p-3 border">Description</th>
+                        <th class="text-lg font-semibold p-3 border">Image</th>
+                        <th class="text-lg font-semibold p-3 border">Created By</th>
+                        <th class="text-lg font-semibold p-3 border">Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for ticket in assigned_ticket %}
+                    <tr class="hover:bg-blue-50 ">
+                        <td class="p-3 border text-gray-700">{{ ticket.id }}</td>
+                        <td class="p-3 border font-semibold text-gray-700">{{ ticket.title }}</td>
+                        <td class="p-3 border font-medium text-gray-700">{{ ticket.description }}</td>
+                        <td class="p-3 border">
+                            {% if ticket.image %}
+                            <img src="{{ ticket.image.url }}" class="w-16 h-16 rounded shadow">
+                            {% else %}
+                            <span class="text-gray-500 font-medium text-gray-700 ">No Image</span>
+                            {% endif %}
+                        </td>
+                        <td class="p-3 border font-medium text-gray-700">{{ ticket.created_by.username }}</td>
+                        <td class="p-3 border font-medium text-gray-700"> {{ ticket.status }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr class="mb-5">
+                        <td class="text-gray-400 text-center justify-center p-3">
+                            No available ticket
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="mt-5 flex flex-col mb-10">
+        <h2 class="text-xl font-semibold mt-5 px-6">Total closed tickets</h2>
+        <div class="bg-white shadow-lg rounded-lg mt-2">
+            <table class="w-full border-collapse">
+                <!-- <thead class="bg-gray-100 ">
+                    <tr>
+                        <th class="text-lg font-semibold p-3 border">ID</th>
+                        <th class="text-lg font-semibold p-3 border">Title</th>
+                        <th class="text-lg font-semibold p-3 border">Description</th>
+                        <th class="text-lg font-semibold p-3 border">Image</th>
+                        <th class="text-lg font-semibold p-3 border">Created By</th>
+                        <th class="text-lg font-semibold p-3 border">Status</th>
+                    </tr>
+                </thead> -->
+
+                <tbody>
+                    {% for ticket in closed_ticket %}
+                    <tr class="hover:bg-blue-50 ">
+                        <td class="p-3 border text-gray-700">{{ ticket.id }}</td>
+                        <td class="p-3 border font-semibold text-gray-700">{{ ticket.title }}</td>
+                        <td class="p-3 border font-medium text-gray-700">{{ ticket.description }}</td>
+                        <td class="p-3 border">
+                            {% if ticket.image %}
+                            <img src="{{ ticket.image.url }}" class="w-16 h-16 rounded shadow">
+                            {% else %}
+                            <span class="text-gray-500 ">No Image</span>
+                            {% endif %}
+                        </td>
+                        <td class="p-3 border text-gray-700">{{ ticket.created_by.username }}</td>
+                        <td class="p-3 border text-gray-700">
+
+                            {{ ticket.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr class="mb-5">
+                        <td class="text-gray-400 text-center p-3">
+                            No available closed ticket
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock content %}

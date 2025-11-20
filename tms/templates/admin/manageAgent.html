@@ -20,20 +20,26 @@
       <tbody>
       
         {% for u in users %}
-        {% if u.role != 'user' %}
+       
         <tr>
           <td class="text-lg font-normal py-2 px-3  border border-gray-300"> {{u.id}} </td>
           <td class="text-lg font-normal py-2 px-3  border border-gray-300">{{u.username}}</td>
           <td class="text-lg font-normal py-2 px-3  border border-gray-300">{{u.email}}</td>
           <td class="text-lg font-normal py-2 px-3  border border-gray-300">{{u.role}}</td>
           <td class="text-md font-normal py-2 px-3  border border-gray-300">
-            <a href=" " class="text-green-600 text-md">Active</a>
+            
+            <p href=" " class="text-green-600 text-md">Active</p>
+            <!-- {% if staff.is_active %}
+            {% else %}
+              <a href=" " class="text-blue-600 text-md">Deactive</a>
+            {% endif %} -->
+              
           </td>
           <td class="text-md font-normal py-2 px-3 border border-gray-300 text-center">
-            <a href="" class="bg-blue-600 text-white font-normal px-2 py-1 rounded">view</a>
+            <a href="{% url 'viewstaffdetails' u.id %}" class="bg-blue-600 text-white font-normal px-2 py-1 rounded">view</a>
           </td>
         </tr>
-        {% endif %}
+        
         {% endfor %}
       </tbody>
     </table>
