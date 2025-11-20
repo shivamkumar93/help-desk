@@ -1,45 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TechSupport - User Portal{% endblock %}</title>
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>User Panel</title>
+
+    <!-- Heroicons (optional – you can remove if you don’t want external SVG) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
 </head>
 
-<body>
-    <div class="flex flex-1 bg-gray-700 text-white items-center py-4 px-[10%] justify-between">
-        
-        <a href="{% url 'homepage' %}"class="text-2xl font-bold" >TechSupport | User Panel</a>
-        <!-- links -->
-        <div class="ml-auto space-x-4 ">
-            <a href="" class="hover:underline hover:text-[#0041A3] hover:bg-[#FFFFFF] py-1 px-2 rounded-sm">Home</a>
-            <a href="" class="hover:underline hover:text-[#0041A3] hover:bg-[#FFFFFF] py-1 px-2 rounded-sm">About</a>
-            <a href="" class="hover:underline hover:text-[#0041A3] hover:bg-[#FFFFFF] py-1 px-2 rounded-sm">Contact</a>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- Top Navbar -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+
+                <!-- Logo & Brand -->
+                <div class="flex items-center">
+                    <a href="{% url 'homepage' %}" class="flex items-center space-x-3 group">
+                        <!-- Simple Support Icon -->
+                        <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center group-hover:bg-blue-700 transition">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold text-gray-900">
+                            TechSupport <span class="text-blue-600">Portal</span>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="{% url 'userdashboard' %}" class="text-gray-600 hover:text-gray-900 transition">Dashboard</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900 transition">Knowledge Base</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900 transition">Contact Us</a>
+                </nav>
+
+                <!-- Right Side – User Menu -->
+                <div class="flex items-center space-x-4">
+                    {% if user.is_authenticated %}
+                        <!-- User Dropdown -->
+                        <div class="relative group">
+                            <button class="flex items-center space-x-3 text-sm font-medium text-gray-700 hover:text-gray-900 focus:outline-none">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <span class="text-blue-700 font-semibold">{{ user.username|slice:":1"|upper }}</span>
+                                </div>
+                                <span class="hidden sm:block">{{ user.username }}</span>
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <div class="py-2">
+                                    <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">My Profile</a>
+                                    <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">My Tickets</a>
+                                    <hr class="my-1 border-gray-200">
+                                    <form action="{% url 'logout' %}" method="post" class="inline">
+                                        {% csrf_token %}
+                                        <button type="submit"
+                                            class="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50">
+                                            Logout
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'loginpage' %}"
+                           class="text-gray-700 hover:text-gray-900 font-medium text-sm transition">
+                            Log in
+                        </a>
+                        <a href="{% url 'registerpage' %}"
+                           class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg text-sm transition shadow-sm">
+                            Sign up
+                        </a>
+                    {% endif %}
+                </div>
+
+            </div>
         </div>
+    </header>
 
-        <div class="ml-auto flex space-x-3">
-            
-            {% if user.is_authenticated %}
-            <a href="" class="hover:underline">{{user.username}} </a>
-            <form action="{% url 'logout' %}" method="post" >
-                {% csrf_token %}
-                <button type="submit" class="hover:underline" >Logout</button>
-            </form>
-            {% else %}
-                <a href="" class="hover:underline">Login</a>
-            <a href="{% url 'registerpage' %}" class="hover:underline">Register</a>
-            {% endif %}
-                
-            
+    <!-- Main Content Area -->
+    <main class="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {% block content %}
+        <!-- Page content goes here -->
+        {% endblock %}
+    </main>
 
+    <!-- Optional Footer (professional touch) -->
+    <footer class="bg-white border-t border-gray-200 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm text-gray-500">
+            © 2025 TechSupport Portal. All rights reserved. 
+            <a href="#" class="hover:text-gray-700 ml-4">Privacy Policy</a>
+            <a href="#" class="hover:text-gray-700 ml-4">Terms of Service</a>
         </div>
-    </div>
+    </footer>
 
-    {% block content %}
-
-    {% endblock %}
 </body>
-
 </html>

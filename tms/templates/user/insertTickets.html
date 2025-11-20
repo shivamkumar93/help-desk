@@ -1,19 +1,63 @@
 {% extends 'user/userbase.html' %}
-{% load tailwind_filters %}
+{% load crispy_forms_tags %}
+{% block title %}Raise a New Ticket{% endblock %}
+
 {% block content %}
-  <div class="flex flex-1 mt-10 px-[15%]">
- 
-    <div class="w-full mt-3">
-        <div class="flex flex-col gap-3 px-3 py-4  border">
-            <h2 class="text-2xl font-bold text-center ">Insert Tickets</h2>
-            <hr>
-            <form action="" method="post" enctype="multipart/form-data">
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 ">
+
+    <!-- Back Link -->
+    <a href="{% url 'userdashboard' %}" 
+       class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium text-sm mb-8 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back to My Tickets
+    </a>
+
+    <!-- Main Card -->
+    <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+
+        <!-- Gradient Header -->
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-500 px-8 py-5   text-white text-center">
+            <h1 class="text-3xl font-bold">Raise a New Ticket</h1>
+            <p class="mt-3 text-blue-100 text-lg opacity-90">
+                Our team usually responds within a few hours
+            </p>
+        </div>
+
+        <!-- Form Body -->
+        <div class="p-4 lg:p-5">
+            <form method="POST" enctype="multipart/form-data" class="space-y-5">
                 {% csrf_token %}
-                {{form|crispy}}
-                <input type="submit" value="Submit" class="text-sm font-medium px-3 py-2 items-center justify-center rounded-lg bg-blue-500 w-full text-white">
+
+                <!-- Crispy Form – Beautifully Styled Automatically -->
+                {{ form|crispy }}
+
+                <!-- Submit Button -->
+                <div class="pt-5 border-t border-gray-200">
+                    <button type="submit"
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg py-2 rounded-xl 
+                                   shadow-lg flex items-center justify-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 19l9-7-9-7v5H3v4h9v5z"/>
+                        </svg>
+                        Submit Ticket
+                    </button>
+                </div>
             </form>
         </div>
     </div>
+
+    <!-- Footer Help -->
+    <div class="mt-12 text-center text-gray-600">
+        <p class="text-sm">
+            Having trouble? Check our 
+            <a href="#" class="text-blue-600 hover:underline font-medium">Knowledge Base</a>
+            first or <a href="#" class="text-blue-600 hover:underline font-medium">chat with us</a>.
+        </p>
+    </div>
 </div>
-  
-{% endblock  %}
+
+{% endblock %}

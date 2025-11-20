@@ -1,76 +1,219 @@
 {% extends 'user/userbase.html' %}
-
 {% block content %}
 
-<div class="px-[10%] py-6 space-y-6 bg-gray-200">
-    <div class="flex flex-col">
+<div class="py-10 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
 
+    <!-- Decorative SVG Wave -->
+    <div class="absolute inset-x-0 top-0 -z-10 transform-gpu overflow-hidden">
+        <svg class="w-full h-64 text-blue-600 opacity-5" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" fill-opacity="0.8"
+                d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,176C1248,192,1344,192,1392,192L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z">
+            </path>
+        </svg>
+    </div>
 
-        <div class="justify-between flex text-center items-center m-5">
+    <!-- Header Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-6">
+            <div>
+                <h2 class="text-4xl font-extrabold text-gray-900 flex items-center gap-3">
+                    Welcome back, {{ user.username }}
+                </h2>
+                <p class="mt-2 text-lg text-gray-600">Here's what's happening with your tickets today.</p>
+            </div>
 
-            <h2 class="text-2xl font-bold ">Welcome to Your DashBoard ({{user.username}})</h2>
             <a href="{% url 'insertTicket' %}"
-                class="text-xl font-bold text-white py-2 px-3 bg-blue-500 border rounded  hover:bg-blue-700">Raised
-                Ticket</a>
+                class="group inline-flex items-center gap-3 bg-teal-300 text-teal-900 font-semibold px-6 py-2 rounded-lg shadow-lg  hover:bg-teal-400">
+                <svg class="w-6 h-6 group-hover:rotate-90 transition-transform duration-500" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Raise New Ticket
+            </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-5">
-
-            <div class="flex border border-gray-300 flex-col shadow-lg p-6 rounded">
-                <h2 class="text-2xl font-bold">Total Tickets : <span class="text-yellow-700"> {{open_ticket|add:close_ticket|add:in_process}}</span></h2>
-                <div class="">
-                    <p class="text-lg">Open Tickets : {{open_ticket}} </p>
-                    <p class="text-lg">Closed Tickets : {{close_ticket}}</p>
-                    <p class="text-lg">In_progress Tickets : {{in_process}}</p>
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <!-- Total Tickets Card -->
+            <div
+                class="group relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-400 overflow-hidden">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                </div>
+                <div class="relative flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 uppercase tracking-wider">Total Tickets</p>
+                        <p class="text-5xl font-extrabold text-gray-900 mt-4">
+                            {{ open_ticket|add:close_ticket|add:in_process }}
+                        </p>
+                        <div class="mt-6 space-y-2">
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                                <p class="text-gray-700">Open: <span class="font-bold text-green-600">{{open_ticket}}</span></p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                                <p class="text-gray-700">Closed: <span class="font-bold text-red-600">{{close_ticket}}</span></p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                                <p class="text-gray-700">In Progress: <span class="font-bold text-yellow-600">{{in_process}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 opacity-20 group-hover:opacity-40 transition-opacity duration-500">
+                        <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z">
+                            </path>
+                        </svg>
+                    </div>
                 </div>
             </div>
 
-            <div class="flex border border-gray-300 flex-col rounded shadow-lg p-6">
-                <h2 class="text-xl font-bold">Recent Activity</h2>
-                <ul class="list-disc list-inside text-gray-700">
-                    <li class="text-lg font-medium">Submitted a ticket on "Login Issue"</li>
-                    <li class="text-lg font-medium">Commented on ticket #45</li>
-                    <li class="text-lg font-medium">Closed ticket #32</li>
+            <!-- Recent Activity -->
+            <div
+                class="group relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-400">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-gray-800">Recent Activity</h3>
+                    <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-4 text-gray-700">
+                        <div class="w-2 h-2 rounded-full bg-green-500 flex-shrink-0"></div>
+                        <span>Submitted a ticket on "Login Issue"</span>
+                        <span class="text-xs text-gray-500 ml-auto">2h ago</span>
+                    </li>
+                    <li class="flex items-center gap-4 text-gray-700">
+                        <div class="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0"></div>
+                        <span>Commented on ticket #45</span>
+                        <span class="text-xs text-gray-500 ml-auto">5h ago</span>
+                    </li>
+                    <li class="flex items-center gap-4 text-gray-700">
+                        <div class="w-2 h-2 rounded-full bg-gray-500 flex-shrink-0"></div>
+                        <span>Closed ticket #32</span>
+                        <span class="text-xs text-gray-500 ml-auto">1 day ago</span>
+                    </li>
                 </ul>
             </div>
 
-            <div class="flex border border-gray-300 rounded flex-col shadow-lg p-6">
-                <h2 class="text-2xl font-semibold">Profile</h2>
-                <p class="text-gray-600 text-lg font-medium">Name : {{user.username}}</p>
-                <p class="text-gray-600 text-lg font-medium">Email : {{request.user.email}}</p>
-                <p class="text-gray-600 text-lg font-medium">Member : {{user.date_joined|date:"F j, Y"}} </p>
+            <!-- Profile Card -->
+            <div class="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl shadow-lg border border-indigo-200 p-8">
+                <div class="flex items-center gap-6 mb-8">
+                    <div
+                        class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center border-4 border-indigo-200">
+                        <span class="text-3xl font-bold text-indigo-600">
+                            {{ user.username|slice:":1"|upper }}
+                        </span>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold text-gray-900">{{ user.username }}</h3>
+                        <p class="text-indigo-600 font-medium">Active Member</p>
+                    </div>
+                </div>
 
+                <div class="bg-white rounded-xl p-3 shadow-sm space-y-1">
+                    <div class="flex justify-between py-1 border-b border-gray-100">
+                        <span class="text-gray-600">Email</span>
+                        <span class="font-medium text-gray-900">{{ request.user.email }}</span>
+                    </div>
+                    <div class="flex justify-between py-3 border-b border-gray-100">
+                        <span class="text-gray-600">Member Since</span>
+                        <span class="font-medium text-gray-900">{{ user.date_joined|date:"d M Y" }}</span>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Tickets Table -->
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+            <div class="px-8 py-6 border-b border-gray-200">
+                <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
+                    <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6-4h6m-6 8h6">
+                        </path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l7-4 7 4z"></path>
+                    </svg>
+                    My Raised Tickets
+                </h2>
             </div>
 
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th
+                                class="px-8 py-5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                ID</th>
+                            <th
+                                class="px-8 py-5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Title</th>
+                            
+                            <th
+                                class="px-8 py-5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Created</th>
+                            <th
+                                class="px-8 py-5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Assigned_to</th>
+                            <th
+                                class="px-8 py-5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Status</th>
+                            <th
+                                class="px-8 py-5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-100">
+                        {% for ticket in tickets %}
+                        <tr class="hover:bg-gray-50 transition-colors duration-200">
+                            <td class="px-8 py-6 font-medium text-gray-900">#{{ ticket.id }}</td>
+                            <td class="px-8 py-6 text-gray-800">{{ ticket.title }}</td>
+                            
+                            <td class="px-8 py-6 text-gray-600">{{ ticket.created_at|date:"M d, Y" }}</td>
+                            <td class="px-8 py-6 text-gray-600">{{ ticket.assigned_to}}</td>
+                            <td class="px-8 py-6">
+                                {% if ticket.status == "open" %}
+                                <span
+                                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-green-100 text-green-700">
+                                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                    Open
+                                </span>
+                                {% elif ticket.status == "closed" %}
+                                <span
+                                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-red-100 text-red-700">
+                                    <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                                    Closed
+                                </span>
+                                {% else %}
+                                <span
+                                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-700">
+                                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+                                    In Progress
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td class="px-8 py-6">
+                                <a href="{% url 'ticketdetail' ticket.id %}"
+                                    class="group inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-semibold transition-colors">
+                                    View
+                                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-    <div class="flex flex-col py-6 pr-[10%] mt-8 space-y-6">
-        <h2  class="text-2xl font-medium ">My All Raise Tickets</h2>
-        <table >
-            <thead>
-                <tr class="">
-                    <th class="border border-gray-300 py-2 ">Id</th>
-                    <th class="border border-gray-300 py-2 ">Title</th>
-                    <th class="border border-gray-300 py-2 ">Status</th>
-                    <th class="border border-gray-300 py-2 ">Created_at</th>
-                    <th class="border border-gray-300 py-2 ">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                {% for ticket in tickets %}
-                       
-                <tr>
-                    <td class="border border-gray-300 py-2 px-4 text-lg">{{ticket.id}}</td>
-                    <td class="border border-gray-300 py-2 px-4 text-lg">{{ticket.title}} </td>
-                    <td class="border border-gray-300 py-2 px-4 text-lg">{{ticket.status}} </td>
-                    <td class="border border-gray-300 py-2 px-4 text-lg">{{ticket.created_at}} </td>
-                    <td class="border border-gray-300 py-2 px-4 text-lg"><a href="{% url 'ticketdetail' ticket.id %}" class="hover:text-blue-900 text-blue-700">View</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
     </div>
 </div>
 

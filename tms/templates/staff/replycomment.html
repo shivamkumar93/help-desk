@@ -4,6 +4,7 @@
 <div class="flex flex-col items-center w-full px-[7%] mt-10">
 
   <!-- Ticket Details Card -->
+   
   <div class="bg-white shadow-md rounded-2xl p-6 w-full px-[4%] border  border-gray-200">
     <h2 class="text-3xl font-bold text-gray-800 mb-4">Ticket Details</h2>
 
@@ -25,7 +26,7 @@
   <div class="flex flex-1 gap-8 w-full  mt-10">
 
     <!-- Replies Section -->
-    <div class="flex flex-col bg-white rounded-2xl shadow-md w-9/12 border border-gray-200">
+    <div class="flex flex-col bg-white rounded-2xl shadow-md w-9/12 border border-gray-400 mb-5">
       <div class="bg-gray-100 rounded-t-2xl py-3 border-b border-gray-200">
         <h2 class="text-xl font-bold text-center text-gray-700">Conversation</h2>
       </div>
@@ -33,9 +34,9 @@
       {% for reply in replies %}
       {% if reply.author.role == 'superadmin' or reply.author.is_superuser %}
       <!-- SuperAdmin Reply -->
-      <div class="flex justify-end px-3 mt-1">
+      <div class="flex justify-end px-3 mt-1 max-w-70">
         <div class="bg-purple-600 text-white rounded-2xl px-4 py-2  shadow">
-          <p class="font-semibold text-sm mb-1"> SuperAdmin</p>
+          <p class="font-semibold text-sm mb-1 "> SuperAdmin</p>
           <p>{{ reply.comment|linebreaksbr }}</p>
           <p class="text-xs text-gray-200 mt-1 text-right">{{ reply.created_at|date:"d M Y H:i" }}</p>
         </div>
@@ -43,19 +44,19 @@
 
       {% elif reply.author.role == 'staff' %}
       <!-- Staff Reply -->
-      <div class="flex justify-end px-3 mt-1">
-        <div class="bg-blue-500 text-white rounded-2xl px-4 py-2  shadow">
+      <div class="flex justify-end px-3 mt-1 ">
+        <div class="bg-blue-500 text-white rounded-2xl px-4 py-2  shadow max-w-[80%]">
           <p class="font-semibold text-sm mb-1">Staff</p>
-          <p>{{ reply.comment|linebreaksbr }}</p>
+          <p class="">{{ reply.comment|linebreaksbr }}</p>
           <p class="text-xs text-gray-200 mt-1 text-right">{{ reply.created_at|date:"d M Y H:i" }}</p>
         </div>
       </div>
 
       {% else %}
       <!-- Normal User Reply -->
-      <div class="flex justify-start px-4 mt-5 mb-4">
+      <div class="flex justify-start px-4 mt-5 mb-4 max-w-[70%]">
         <div class="bg-green-100 text-gray-900 rounded-2xl px-4 py-2  shadow">
-          <p class="font-semibold text-sm mb-1">{{ reply.author.username }}</p>
+          <p class="font-semibold text-sm mb-1 ">{{ reply.author.username }}</p>
           <p>{{ reply.comment|linebreaksbr }}</p>
           <p class="text-xs text-gray-500 mt-1 text-right">{{ reply.created_at|date:"d M Y H:i" }}</p>
         </div>
@@ -67,7 +68,7 @@
 
     <!-- Reply Form -->
     <div class="flex flex-col bg-white border border-gray-200 rounded-2xl w-3/12 self-start shadow-md p-5">
-      <h3 class="text-2xl font-bold text-center text-gray-800 mb-5">chat with spacelist</h3>
+      <h3 class="text-2xl font-bold text-center text-gray-800 mb-5">Chat with Customer</h3>
 
       <form method="POST" class="space-y-3">
         {% csrf_token %}
@@ -78,10 +79,7 @@
         </button>
       </form>
 
-      <a href="{% url 'staffdashboard' %}"
-        class="text-center mt-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">
-        ← Back to Dashboard
-      </a>
+      
     </div>
 
   </div>

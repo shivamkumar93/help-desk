@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from tms.forms import *
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def homepage(request):
@@ -28,17 +29,19 @@ def custom_login(request):
             if user.role == 'staff':
                 return redirect('staffdashboard')
             
-           
-            else:
+            elif user.role == 'user':
                 return redirect('homepage')
+            else:
+                return redirect('admindashboard')
     return render(request, 'login.html')
 
 
-    
+@login_required  
 def user_logout(request):
     logout(request)
     return redirect('homepage')
 
+@login_required
 def insertTicket(request):
     form = SupportTicketForm(request.POST or None, request.FILES or None)
     if request.method == 'POST':
@@ -50,16 +53,18 @@ def insertTicket(request):
             return redirect(userDashboard)
     return render(request, 'user/insertTickets.html', {'form':form})
 
+@login_required
 def userDashboard(request):
     count = {
         "open_ticket" : TicketSupport.objects.filter(status = 'open', created_by = request.user).count(),
         "close_ticket" : TicketSupport.objects.filter(status = 'closed', created_by = request.user).count(),
         "in_process" : TicketSupport.objects.filter(status = 'in_progress', created_by = request.user).count(),
-        "tickets" : TicketSupport.objects.filter(created_by=request.user)
+        "tickets" : TicketSupport.objects.filter(created_by=request.user).order_by("-status")
 
     }
     return render(request, 'user/userdashboard.html', count)
 
+@login_required
 def ticketDetail(request, ticket_id):
     ticket = get_object_or_404(TicketSupport, id=ticket_id, created_by = request.user)
     replies = ticket.comments.all().order_by('created_at')

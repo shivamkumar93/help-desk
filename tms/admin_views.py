@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from tms.models import *
 from tms.forms import *
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from tms.decorators import *
 
-def is_superadmin(user):
-    return user.is_authenticated and user.is_superuser  # ya user.role == 'superadmin'
+
 
 # Apply decorator to view
-@user_passes_test(is_superadmin, login_url='/homepage/',)
+@login_required
+@role_required(allowed_roles=['superadmin'])
 def dashboard(request):
     count = {
         "users" : CustomUser.objects.count(),
@@ -21,15 +22,14 @@ def dashboard(request):
     return render(request, 'admin/dashboard.html', {'count':count})
 
 @login_required
-@user_passes_test(is_superadmin, login_url='/homepage/',)
-
+@role_required(allowed_roles=['superadmin'])
 def manage_user(request):
     users = CustomUser.objects.filter(role = 'user')
     return render(request, 'admin/manageUsers.html', {'users': users})
 
 # all ticket manage 
 @login_required
-@user_passes_test(is_superadmin, login_url='/homepage/',)
+@role_required(allowed_roles=['superadmin'])
 def manage_tickets(request):
     tickets = TicketSupport.objects.filter(status='open')
     assigned_ticket = TicketSupport.objects.filter(status='in_progress')
@@ -37,14 +37,16 @@ def manage_tickets(request):
     return render(request, "admin/manageTickets.html", {'tickets':tickets, "assigned_ticket":assigned_ticket, "closed_ticket":closed_ticket})
 
 
-@login_required
 # manage all staff
-@user_passes_test(is_superadmin, login_url='/homepage/',)
+@login_required
+@role_required(allowed_roles=['superadmin'])
 def manage_agents(request):
     users = CustomUser.objects.filter(role='staff')
     return render(request, "admin/manageAgent.html",{'users':users})
 
 # delete users
+@login_required
+@role_required(allowed_roles=['superadmin'])
 def delete_user(request, id):
     item = CustomUser.objects.get(id=id)
     item.delete()
@@ -52,13 +54,13 @@ def delete_user(request, id):
 
 
 @login_required
-@user_passes_test(is_superadmin, login_url='/homepage/',)
+@role_required(allowed_roles=['superadmin'])
 def manage_reports(request):
     return render(request, "admin/reports.html")
 
 #ticket status change logic
 @login_required
-@user_passes_test(is_superadmin, login_url='/homepage/',)
+@role_required(allowed_roles=['superadmin'])
 def change_status(request, id):
     ticket = TicketSupport.objects.get(id=id)
     ticket.status = 'closed'
@@ -67,7 +69,7 @@ def change_status(request, id):
 
 #ticket delete reply
 @login_required
-@user_passes_test(is_superadmin, login_url='/homepage/',)
+@role_required(allowed_roles=['superadmin'])
 def deleteTicket(request, id):
     item = get_object_or_404(TicketSupport, id=id)
     item.delete()
@@ -75,7 +77,8 @@ def deleteTicket(request, id):
 
 #ticket reply logic
 @login_required
-@user_passes_test(is_superadmin, login_url='/homepage/',)
+@role_required(allowed_roles=['superadmin'])
+
 def ticketReply(request, ticket_id):
     ticket = get_object_or_404(TicketSupport, id=ticket_id)
     replies = ticket.comments.all().order_by('created_at')
@@ -98,7 +101,7 @@ def ticketReply(request, ticket_id):
     return render(request, 'admin/ticketreply.html',{'ticket':ticket,'replies':replies, 'form':form})
 
 @login_required
-@user_passes_test(is_superadmin, login_url='/homepage/')
+@role_required(allowed_roles=['superadmin'])
 def assigned_ticket(request, ticket_id):
     ticket = get_object_or_404(TicketSupport, id=ticket_id)
     form = AssignedTicketForm(request.POST or None, instance=ticket)
@@ -115,7 +118,7 @@ def assigned_ticket(request, ticket_id):
 
 # Create  Agent
 @login_required
-@user_passes_test(is_superadmin, login_url='/homepage/')
+@role_required(allowed_roles=['superadmin'])
 def create_agent(request):
     form = RegisterForm(request.POST or None)
     if request.method == 'POST':
@@ -126,6 +129,10 @@ def create_agent(request):
             return redirect('manageagent')
     return render(request, 'admin/createAgent.html', {'form':form})
 
+
+#view staff details with all ticketreply
+@login_required
+@role_required(allowed_roles=['superadmin'])
 def view_Staffdetails(request, ticket_id):
     staff = CustomUser.objects.get(id=ticket_id)
     contex = {
@@ -135,6 +142,10 @@ def view_Staffdetails(request, ticket_id):
     }
     return render(request, 'admin/viewstaffdetail.html', contex)
 
+
+#view user detail with all ticket
+@login_required
+@role_required(allowed_roles=['superadmin'])
 def view_Userdetails(request, ticket_id):
     customer = CustomUser.objects.get(id=ticket_id)
     context = {
