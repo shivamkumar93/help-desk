@@ -1,28 +1,106 @@
 {% extends 'staff/staffbase.html' %}
 
+{% block page_title %}Dashboard{% endblock %}
+
 {% block content %}
 
-<div class="w-full mt-10">
-    <h2 class="px-10 font-semibold text-lg "> Welocome to Our Dashboard, <span class="text-blue-700">{{user.username}}!</span></h2>
-    <div class="grid grid-cols-4 px-[3%] py-5 gap-5">
-        <div class="flex flex-col border py-5 text-white shadow px-4 bg-red-500 rounded">
-            <h3 class="text-xl font-bold">Total Ticket</h3>
-            <p class="text-2xl font-bold">{{count.tickets}}</p>
+<div class="max-w-7xl mx-auto">
+    <!-- Welcome Message -->
+    <div class="mb-10">
+        <h1 class="text-3xl font-bold text-gray-800">
+            Welcome back, <span class="text-sky-600">{{ user.get_full_name|default:user.username }}</span>!
+        </h1>
+        <p class="text-gray-600 mt-2">Here's what's happening with your support system today.</p>
+    </div>
+
+    <!-- Stats Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Total Tickets -->
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Total Tickets</p>
+                    <p class="text-3xl font-bold text-gray-800 mt-2">{{ count.tickets }}</p>
+                </div>
+                <div class="p-4 bg-red-100 rounded-full">
+                    <i class="fas fa-ticket-alt text-2xl text-red-600"></i>
+                </div>
+            </div>
+            <div class="mt-4 flex items-center text-sm">
+                <span class="text-gray-500">All time</span>
+            </div>
         </div>
-        <div class="flex flex-col border py-5 text-white shadow px-4 bg-blue-500 rounded">
-            <h3 class="text-xl font-bold">Total Open Ticket</h3>
-            <p class="text-2xl font-bold">{{count.open_ticket}}</p>
+
+        <!-- Open Tickets -->
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Open Tickets</p>
+                    <p class="text-3xl font-bold text-gray-800 mt-2">{{ count.open_ticket }}</p>
+                </div>
+                <div class="p-4 bg-blue-100 rounded-full">
+                    <i class="fas fa-inbox text-2xl text-blue-600"></i>
+                </div>
+            </div>
+            <div class="mt-4 flex items-center text-sm">
+                <span class="text-blue-600 font-medium">Needs Attention</span>
+            </div>
         </div>
-        <div class="flex flex-col border py-5 text-white shadow px-4 bg-green-500 rounded">
-            <h3 class="text-xl font-bold">Total Resolved Ticket</h3>
-            <p class="text-2xl font-bold">{{count.close_ticket}}</p>
+
+        <!-- Resolved Tickets -->
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Resolved Tickets</p>
+                    <p class="text-3xl font-bold text-gray-800 mt-2">{{ count.close_ticket }}</p>
+                </div>
+                <div class="p-4 bg-green-100 rounded-full">
+                    <i class="fas fa-check-circle text-2xl text-green-600"></i>
+                </div>
+            </div>
+            <div class="mt-4 flex items-center text-sm">
+                <span class="text-green-600 font-medium">Great job!</span>
+            </div>
         </div>
-        <div class="flex flex-col border py-5 text-white shadow px-4 bg-yellow-500 rounded">
-            <h3 class="text-xl font-bold">Total Staff</h3>
-            <p class="text-2xl font-bold">{{count.users}}</p>
+
+        <!-- Total Staff -->
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Active Staff</p>
+                    <p class="text-3xl font-bold text-gray-800 mt-2">{{ count.users }}</p>
+                </div>
+                <div class="p-4 bg-purple-100 rounded-full">
+                    <i class="fas fa-users text-2xl text-purple-600"></i>
+                </div>
+            </div>
+            <div class="mt-4 flex items-center text-sm">
+                <span class="text-gray-500">Team members</span>
+            </div>
         </div>
-       
+    </div>
+
+    <!-- Optional: Quick Stats or Recent Activity (you can expand later) -->
+    <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-chart-line text-sky-600"></i>
+                Recent Activity
+            </h3>
+            <p class="text-gray-600">Activity log coming soon...</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
+            <h3 class="text-lg font-semibold mb-3">Avg. Resolution Time</h3>
+            <p class="text-4xl font-bold">2.4h</p>
+            <p class="text-sm mt-2 opacity-90">Faster than last week</p>
+            <div class="mt-4 flex items-center gap-2 text-sm">
+                <i class="fas fa-arrow-down"></i>
+                <span>12% improvement</span>
+            </div>
+        </div>
     </div>
 </div>
-  
+
 {% endblock content %}

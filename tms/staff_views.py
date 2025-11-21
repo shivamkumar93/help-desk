@@ -11,9 +11,9 @@ from tms.decorators import *
 def staff_dashboard(request):
     count = {
         "open_ticket" : TicketSupport.objects.filter(status = 'open').count(),
-        "close_ticket" : TicketSupport.objects.filter(status = 'closed').count(),
-        "in_process" : TicketSupport.objects.filter(status = 'in_progress').count(),
-        "tickets" : TicketSupport.objects.count(),
+        "close_ticket" : TicketSupport.objects.filter(assigned_to=request.user, status = 'closed').count(),
+        "in_process" : TicketSupport.objects.filter(assigned_to=request.user,status = 'in_progress').count(),
+        "tickets" : TicketSupport.objects.filter(assigned_to=request.user).count(),
         "users" : CustomUser.objects.filter(role = 'staff').count()
 
     }

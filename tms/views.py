@@ -30,7 +30,7 @@ def custom_login(request):
                 return redirect('staffdashboard')
             
             elif user.role == 'user':
-                return redirect('homepage')
+                return redirect('userdashboard')
             else:
                 return redirect('admindashboard')
     return render(request, 'login.html')
