@@ -93,7 +93,7 @@
                         {% elif reply.author.role == 'staff' %}
                         <!-- Staff Reply -->
                         <div class="flex justify-end">
-                            <div class="max-w-xl w-full">
+                            <div class="max-w-xl justify-start">
                                 <div class="bg-sky-50 border border-sky-200 text-gray-800 rounded-2xl rounded-tr-none px-5 py-2">
                                     <div class="flex items-center gap-1 ">
                                         <!-- <div class="w-9 h-9 bg-sky-200 rounded-full flex items-center justify-center text-sky-700 font-bold text-sm">
@@ -104,7 +104,7 @@
                                             <p ></p>
                                         </div>
                                     </div>
-                                    <p class="whitespace-pre-wrap text-sm leading-relaxed">{{ reply.comment|linebreaksbr }}</p>
+                                    <p class="whitespace-pre-wrap text-sm leading-relaxed justify-end">{{ reply.comment|linebreaksbr }}</p>
                                     <p class="text-xs text-gray-500 mt-2 text-right">
                                         {{ reply.created_at|date:"d M Y \a\t H:i" }}
                                     </p>
@@ -115,14 +115,14 @@
                         {% else %}
                         <!-- Customer Reply -->
                         <div class="flex justify-start">
-                            <div class="max-w-xl w-full">
+                            <div class="max-w-xl ">
                                 <div class="bg-gray-100 border border-gray-300 text-gray-800 rounded-2xl rounded-tl-none px-5 py-2">
                                     <div class="flex items-center ">
                                         <!-- <div class="w-9 h-9 bg-gray-300 rounded-full flex items-center justify-center font-bold text-gray-700 text-sm">
                                             {{ reply.author.username|slice:":1"|upper }}
                                         </div> -->
                                         <div>
-                                            <p class="font-semibold">You ( <span class="text-xs text-gray-600">{{ reply.author.username }}</span> ) </p>
+                                            <p class="font-semibold">You  </p>
                                            
                                         </div>
                                     </div>

@@ -111,7 +111,7 @@
                     </div>
                     <div>
                         <h3 class="text-3xl font-bold text-gray-900">{{ user.username }}</h3>
-                        <p class="text-indigo-600 font-medium">Active Member</p>
+                        <p class="text-green-600 font-medium">Active </p>
                     </div>
                 </div>
 
@@ -121,7 +121,7 @@
                         <span class="font-medium text-gray-900">{{ request.user.email }}</span>
                     </div>
                     <div class="flex justify-between py-3 border-b border-gray-100">
-                        <span class="text-gray-600">Member Since</span>
+                        <span class="text-gray-600">Joined Date</span>
                         <span class="font-medium text-gray-900">{{ user.date_joined|date:"d M Y" }}</span>
                     </div>
                     
@@ -197,7 +197,8 @@
                                 </span>
                                 {% endif %}
                             </td>
-                            <td class="px-8 py-6">
+                            <td class="px-8 py-6 gap-3 flex">
+                                     
                                 <a href="{% url 'ticketdetail' ticket.id %}"
                                     class="group inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-semibold transition-colors">
                                     View
@@ -207,6 +208,10 @@
                                             d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                                     </svg>
                                 </a>
+                                {% if ticket.status == "closed" %}
+                                    
+                                <a href="{% url 'reopenticket' ticket.id %}" class="text-green-600 hover:text-green-700 hover:underline">Reopen</a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}

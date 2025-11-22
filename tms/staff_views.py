@@ -7,7 +7,7 @@ from tms.decorators import *
 
 # staff dashboard
 @login_required
-@role_required(allowed_roles=['staff'])
+@role_required(allowed_roles=['staff', 'superadmin'])
 def staff_dashboard(request):
     count = {
         "open_ticket" : TicketSupport.objects.filter(status = 'open').count(),

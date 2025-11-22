@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from tms.forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from tms.decorators import role_required
 # Create your views here.
 
 def homepage(request):
@@ -54,6 +55,7 @@ def insertTicket(request):
     return render(request, 'user/insertTickets.html', {'form':form})
 
 @login_required
+@role_required(allowed_roles=['user'])
 def userDashboard(request):
     count = {
         "open_ticket" : TicketSupport.objects.filter(status = 'open', created_by = request.user).count(),
@@ -65,6 +67,7 @@ def userDashboard(request):
     return render(request, 'user/userdashboard.html', count)
 
 @login_required
+@role_required(allowed_roles=['user'])
 def ticketDetail(request, ticket_id):
     ticket = get_object_or_404(TicketSupport, id=ticket_id, created_by = request.user)
     replies = ticket.comments.all().order_by('created_at')
@@ -84,3 +87,10 @@ def ticketDetail(request, ticket_id):
                 ticket.save()
             return redirect('replycomment', id=ticket.id)
     return render(request, 'user/ticketdetail.html', {'ticket':ticket, 'replies':replies, 'form':form})
+
+
+def reopen_ticket(request, ticket_id):
+    ticket = TicketSupport.objects.get(id=ticket_id)
+    ticket.status = 'open'
+    ticket.save()
+    return redirect(userDashboard)

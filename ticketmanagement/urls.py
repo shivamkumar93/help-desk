@@ -34,6 +34,7 @@ urlpatterns = [
     path("user-insertTicket/", insertTicket, name='insertTicket'),
     path("user-dashboard/", userDashboard, name='userdashboard'),
     path("user-ticketdetail/<int:ticket_id>/", ticketDetail, name='ticketdetail'),
+    path("user-reopen/<int:ticket_id>/", reopen_ticket, name='reopenticket'),
 
     # Staff urls
     path('staff-dashboard/', staff_dashboard, name='staffdashboard'),
