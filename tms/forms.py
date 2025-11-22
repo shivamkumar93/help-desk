@@ -18,10 +18,10 @@ class RegisterForm(UserCreationForm):
             return email
     
 
-class SupportTicketForm(ModelForm):
-    class Meta:
-        model = TicketSupport
-        fields = ['title','department','description', 'image']
+# class SupportTicketForm(ModelForm):
+#     class Meta:
+#         model = TicketSupport
+#         fields = ['title','department','description', 'image']
 
 class TicketCommentForm(ModelForm):
     class Meta:

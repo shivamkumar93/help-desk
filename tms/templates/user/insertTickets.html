@@ -4,11 +4,11 @@
 
 {% block content %}
 
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 ">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 ">
 
     <!-- Back Link -->
     <a href="{% url 'userdashboard' %}" 
-       class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium text-sm mb-8 transition">
+       class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium text-sm mb-4 transition">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
@@ -19,20 +19,43 @@
     <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
 
         <!-- Gradient Header -->
-        <div class="bg-gradient-to-r from-blue-500 to-indigo-500 px-8 py-5   text-white text-center">
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-500 px-8 py-3   text-white text-center">
             <h1 class="text-3xl font-bold">Raise a New Ticket</h1>
-            <p class="mt-3 text-blue-100 text-lg opacity-90">
+            <p class="mt-1 text-blue-100 text-lg opacity-90">
                 Our team usually responds within a few hours
             </p>
         </div>
 
         <!-- Form Body -->
         <div class="p-4 lg:p-5">
-            <form method="POST" enctype="multipart/form-data" class="space-y-5">
+            <form method="POST" enctype="multipart/form-data" class="space-y-3">
                 {% csrf_token %}
 
-                <!-- Crispy Form – Beautifully Styled Automatically -->
-                {{ form|crispy }}
+               <div>
+                <label for="title" class="w-full text-lg font-semibold"> Title </label>
+                <input type="text" name="title" id="title" required class="w-full border py-2 border-gray-200 px-2 rounded-xl" placeholder="Enter title here">
+               </div>
+
+               <div>
+                <label for="description" class="w-full text-lg font-semibold"> Descriptions </label>
+                <textarea name="description" id="description" required class="w-full border border-gray-200 p-3 rounded-xl " ></textarea>
+               </div>
+
+               <div>
+                <label for="departments" class="w-full text-lg font-semibold">Department</label>
+                <select name="departments" id="departments" class="w-full border border-gray-200 py-2 text-sm rounded-xl px-2">
+                    <option value="">Select Department</option>
+                    <option value="technical">Technical</option>
+                    <option value="support">Support</option>
+                    <option value="sells">Sells</option>
+                </select>
+               </div>
+
+               <div>
+                <label for="attachments" class="w-full text-lg font-semibold">Attachment</label>
+                <input type="file" name="attachments" id="attachments" multiple class="w-full  py-1 rounded-xl px-2">
+               </div>
+
 
                 <!-- Submit Button -->
                 <div class="pt-5 border-t border-gray-200">
@@ -51,13 +74,13 @@
     </div>
 
     <!-- Footer Help -->
-    <div class="mt-12 text-center text-gray-600">
+    <!-- <div class="mt-12 text-center text-gray-600">
         <p class="text-sm">
             Having trouble? Check our 
             <a href="#" class="text-blue-600 hover:underline font-medium">Knowledge Base</a>
             first or <a href="#" class="text-blue-600 hover:underline font-medium">chat with us</a>.
         </p>
-    </div>
+    </div> -->
 </div>
 
 {% endblock %}

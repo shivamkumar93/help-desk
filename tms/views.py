@@ -44,15 +44,22 @@ def user_logout(request):
 
 @login_required
 def insertTicket(request):
-    form = SupportTicketForm(request.POST or None, request.FILES or None)
+
     if request.method == 'POST':
-        if form.is_valid():
-            ticket = form.save(commit = False)
-            ticket.created_by = request.user
-            ticket.status = 'open'
-            ticket.save()
-            return redirect(userDashboard)
-    return render(request, 'user/insertTickets.html', {'form':form})
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        department = request.POST.get('departments')
+
+        newTicket = TicketSupport.objects.create(title=title, description=description, department=department, created_by=request.user, status='open')
+
+        if 'attachments' in request.FILES:
+            attachments = request.FILES.getlist('attachments')
+
+            for file in attachments:
+                AttachmentTicket.objects.create(file=file, ticket=newTicket, uploaded_by=request.user)
+        return redirect('userdashboard')
+    
+    return render(request, 'user/insertTickets.html')
 
 @login_required
 @role_required(allowed_roles=['user'])
@@ -71,6 +78,7 @@ def userDashboard(request):
 def ticketDetail(request, ticket_id):
     ticket = get_object_or_404(TicketSupport, id=ticket_id, created_by = request.user)
     replies = ticket.comments.all().order_by('created_at')
+    attachments = ticket.attachments.all()
     form = TicketCommentForm(request.POST or None)
     
     if request.method == 'POST':
@@ -86,7 +94,7 @@ def ticketDetail(request, ticket_id):
                     ticket.status = 'in_progress'
                 ticket.save()
             return redirect('replycomment', id=ticket.id)
-    return render(request, 'user/ticketdetail.html', {'ticket':ticket, 'replies':replies, 'form':form})
+    return render(request, 'user/ticketdetail.html', {'ticket':ticket, 'replies':replies, 'form':form, 'attachments':attachments})
 
 
 def reopen_ticket(request, ticket_id):
