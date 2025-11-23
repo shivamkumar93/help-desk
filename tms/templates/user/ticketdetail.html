@@ -97,8 +97,7 @@
                                         </div> -->
                                     <div>
                                         <p class="font-semibold text-indigo-900">Super Admin</p>
-                                        <p class="text-xs text-gray-600">{{
-                                            reply.author.get_full_name|default:reply.author.username }}</p>
+                                        <p class="text-xs text-gray-600">{{reply.author.username }}</p>
                                     </div>
                                 </div>
                                 <p class="whitespace-pre-wrap text-sm leading-relaxed">{{ reply.comment|linebreaksbr }}
@@ -122,14 +121,12 @@
                                         </div> -->
                                     <div>
                                         <p class="font-semibold text-sky-900">Support Team ( <span
-                                                class="text-xs text-gray-600">{{
-                                                reply.author.get_full_name|default:reply.author.username }}</span> )
+                                                class="text-xs text-gray-600">{{reply.author.username }}</span> )
                                         </p>
                                         <p></p>
                                     </div>
                                 </div>
-                                <p class="whitespace-pre-wrap text-sm leading-relaxed justify-end">{{
-                                    reply.comment|linebreaksbr }}</p>
+                                <p class="whitespace-pre-wrap text-sm leading-relaxed justify-end">{{reply.comment|linebreaksbr }}</p>
                                 <p class="text-xs text-gray-500 mt-2 text-right">
                                     {{ reply.created_at|date:"d M Y \a\t H:i" }}
                                 </p>

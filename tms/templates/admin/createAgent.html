@@ -2,10 +2,10 @@
 <!-- {% load tailwind_filters %} -->
 {% block content %}
 {% load widget_tweaks %}
-<div class="flex w-full h-screen items-center justify-center bg-gray-100">
-    <div class="flex flex-col px-10 py-8 bg-white shadow-lg rounded-lg w-full max-w-md">
+<div class="flex w-full items-center justify-center  bg-amber-50 h-full ">
+    <div class="flex flex-col px-10 py-5 bg-white shadow-lg rounded-lg w-full max-w-lg">
 
-        <form method="POST" class="  rounded-lg w-96 mx-auto">
+        <form method="POST" class="rounded-lg w-96 mx-auto">
             {% csrf_token %}
 
             <h2 class="text-2xl font-bold mb-4 text-center">Create New Staff</h2>

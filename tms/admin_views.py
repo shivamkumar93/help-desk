@@ -12,11 +12,13 @@ from tms.decorators import *
 @role_required(allowed_roles=['superadmin'])
 def dashboard(request):
     count = {
-        "users" : CustomUser.objects.count(),
+        "users" : CustomUser.objects.filter(role = 'user').count(),
         "tickets" : TicketSupport.objects.count(),
+        "opens" : TicketSupport.objects.filter(status='open').count(),
         "replay" : CommentTicket.objects.count(),
         "agents" : CustomUser.objects.filter(role = "staff").count(),
-        "resloved_tickets" : TicketSupport.objects.filter(status = "closed").count()
+        "resloved_tickets" : TicketSupport.objects.filter(status = "closed").count(),
+        "inprogress" : TicketSupport.objects.filter(status = "in_progress").count(),
     }
 
     return render(request, 'admin/dashboard.html', {'count':count})
@@ -34,6 +36,7 @@ def manage_tickets(request):
     tickets = TicketSupport.objects.filter(status='open')
     assigned_ticket = TicketSupport.objects.filter(status='in_progress')
     closed_ticket = TicketSupport.objects.filter(status='closed')
+    
     return render(request, "admin/manageTickets.html", {'tickets':tickets, "assigned_ticket":assigned_ticket, "closed_ticket":closed_ticket})
 
 
@@ -41,8 +44,8 @@ def manage_tickets(request):
 @login_required
 @role_required(allowed_roles=['superadmin'])
 def manage_agents(request):
-    users = CustomUser.objects.filter(role='staff')
-    return render(request, "admin/manageAgent.html",{'users':users})
+    agents = CustomUser.objects.filter(role='staff')
+    return render(request, "admin/manageAgent.html",{'agents':agents})
 
 # delete users
 @login_required

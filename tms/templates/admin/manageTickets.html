@@ -5,9 +5,9 @@
     <h2 class="text-2xl font-semibold ">Manage all open Tickets </h2>
 </div>
 <!-- Open Ticket -->
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-6 mt-5">
+<div class="relative overflow-x-auto  sm:rounded-lg px-6 mt-5">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-gray-100 uppercase bg-gray-400 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">Id</th>
                 <th scope="col" class="px-6 py-3">Title</th>
@@ -30,13 +30,16 @@
                 <td class="px-6 py-3 text-sm">{{ticket.title}}</td>
                 <td class="px-6 py-3 text-sm">
 
-                    {% if ticket.image %}
-                    <img src=" {{ticket.image.url }}" alt=" image" class="size-28">
+                    {% if ticket.attachments.exists %}
+                    {% for attachment in ticket.attachments.all %}
+                    <a href="{{attachment.file.url }}" target="_blank">{{ attachment.file.name }} </a>
+                    <!-- <img src=" " alt=" attachment" class="size-28"> -->
+                    {% endfor %}
+                        
                     {% else %}
-                    <p>No Image </p>
+                    <p>No attachment </p>
 
                     {% endif %}
-
 
                 </td>
 
@@ -49,7 +52,7 @@
                     <a href="{% url 'deleteticket' ticket.id %}"
                         class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                     <a href="{% url 'ticketreply' ticket.id %}"
-                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Agent</a>
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View chat</a>
 
                     {% if ticket.status != 'closed' %}
 
@@ -71,9 +74,9 @@
 
 <!-- assigned Ticket -->
 <h2 class="text-2xl font-bold mt-5 px-6">Staff assigned tickets</h2>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-6 mt-5">
+<div class="relative overflow-x-auto sm:rounded-lg px-6 mt-5">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-white uppercase bg-teal-500 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">Id</th>
                 <th scope="col" class="px-6 py-3">Title</th>
@@ -89,20 +92,23 @@
         </thead>
         <tbody>
             {% for agent in assigned_ticket %}
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-green-200 dark:hover:bg-gray-600">
                 <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ agent.id }}
                 </th>
                 <td class="px-6 py-3 text-sm">{{agent.title}}</td>
                 <td class="px-6 py-3 text-sm">
 
-                    {% if ticket.image %}
-                    <img src=" {{agent.image.url }}" alt=" image" class="size-28">
+                    {% if ticket.attachments.exists %}
+                    {% for attachment in ticket.attachments.all %}
+                    <a href="{{attachment.file.url }}" target="_blank">{{ attachment.file.name }} </a>
+                    <!-- <img src=" " alt=" attachment" class="size-28"> -->
+                    {% endfor %}
+                        
                     {% else %}
-                    <p>No Image </p>
+                    <p>No attachment </p>
 
                     {% endif %}
-
 
                 </td>
 
@@ -115,7 +121,7 @@
                     <a href="{% url 'deleteticket' agent.id %}"
                         class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                     <a href="{% url 'ticketreply' agent.id %}"
-                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Agent</a>
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View chat</a>
 
                     {% if ticket.status != 'closed' %}
 
@@ -137,9 +143,9 @@
 
  <!-- closed ticket -->
 <h2 class="text-2xl font-bold mt-5 px-6">Closed tickets</h2>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-6 mt-5">
+<div class="relative overflow-x-auto sm:rounded-lg px-6 mt-5">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-white uppercase bg-green-400 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">Id</th>
                 <th scope="col" class="px-6 py-3">Title</th>
@@ -155,20 +161,23 @@
         </thead>
         <tbody>
             {% for closed in closed_ticket %}
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-green-100 ">
                 <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ closed.id }}
                 </th>
                 <td class="px-6 py-3 text-sm">{{closed.title}}</td>
                 <td class="px-6 py-3 text-sm">
 
-                    {% if ticket.image %}
-                    <img src=" {{agent.image.url }}" alt=" image" class="size-28">
+                    {% if ticket.attachments.exists %}
+                    {% for attachment in ticket.attachments.all %}
+                    <a href="{{attachment.file.url }}" target="_blank">{{ attachment.file.name }} </a>
+                    <!-- <img src=" " alt=" attachment" class="size-28"> -->
+                    {% endfor %}
+                        
                     {% else %}
-                    <p>No Image </p>
+                    <p>No attachment </p>
 
                     {% endif %}
-
 
                 </td>
 
@@ -181,7 +190,7 @@
                     <a href="{% url 'deleteticket' closed.id %}"
                         class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                     <a href="{% url 'ticketreply' closed.id %}"
-                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Agent</a>
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View chat</a>
 
                     {% if ticket.status != 'closed' %}
 
