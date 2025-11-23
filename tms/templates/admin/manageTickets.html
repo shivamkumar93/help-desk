@@ -1,11 +1,11 @@
 {% extends 'admin/adminbase.html' %}
 
 {% block content %}
-<div class="flex flex-1 justify-between items-center px-6">
-    <h2 class="text-2xl font-semibold ">Manage all open Tickets </h2>
+<div class="flex flex-1 justify-between items-center mt-2 px-6">
+    <h2 class="text-2xl font-semibold text-green-600 ">Manage all open Tickets </h2>
 </div>
 <!-- Open Ticket -->
-<div class="relative overflow-x-auto  sm:rounded-lg px-6 mt-5">
+<div class=" overflow-x-auto  sm:rounded-lg px-6 mt-5">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-100 uppercase bg-gray-400 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -73,8 +73,8 @@
 </div>
 
 <!-- assigned Ticket -->
-<h2 class="text-2xl font-bold mt-5 px-6">Staff assigned tickets</h2>
-<div class="relative overflow-x-auto sm:rounded-lg px-6 mt-5">
+<h2 class="text-2xl font-semibold text-teal-700 mt-5 px-6">Staff assigned tickets</h2>
+<div class=" overflow-x-auto sm:rounded-lg px-6 mt-5">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-white uppercase bg-teal-500 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -92,7 +92,7 @@
         </thead>
         <tbody>
             {% for agent in assigned_ticket %}
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-green-200 dark:hover:bg-gray-600">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-teal-200 dark:hover:bg-gray-600">
                 <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ agent.id }}
                 </th>
@@ -142,8 +142,8 @@
 </div>
 
  <!-- closed ticket -->
-<h2 class="text-2xl font-bold mt-5 px-6">Closed tickets</h2>
-<div class="relative overflow-x-auto sm:rounded-lg px-6 mt-5">
+<h2 class="text-2xl font-semibold text-gray-700 mt-5 px-6">Closed tickets</h2>
+<div class=" overflow-x-auto sm:rounded-lg px-6 mt-5">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-white uppercase bg-green-400 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -161,7 +161,7 @@
         </thead>
         <tbody>
             {% for closed in closed_ticket %}
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-green-100 ">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-green-200 ">
                 <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ closed.id }}
                 </th>
