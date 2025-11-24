@@ -116,7 +116,11 @@
                 </div>
 
                 <div class="bg-white rounded-xl p-3 shadow-sm space-y-1">
+                    <div class="flex flex-1">Name
+                        <p class="ml-5"> {{request.user.first_name}} <span >{{request.user.last_name}}</span></p>
+                    </div>
                     <div class="flex justify-between py-1 border-b border-gray-100">
+                        
                         <span class="text-gray-600">Email</span>
                         <span class="font-medium text-gray-900">{{ request.user.email }}</span>
                     </div>
