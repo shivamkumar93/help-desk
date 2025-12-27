@@ -1,19 +1,19 @@
 {% extends 'admin/adminbase.html' %}
 
 {% block content %}
-<div class="mt-10 ml-10">
+<div class="">
     <p class="text-lg text-green-600 font-semibold">Welocome to the Admin Dashboard. here you can manage users. view reports, and configure system
         settings.</p>
-    <div class="grid grid-cols-4 pr-[4%] gap-5 mt-5">
+    <div class="grid grid-cols-4  gap-5 mt-5">
         <div
-            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
+            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:cursor-pointer hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
             <div class="flex flex-1 justify-between">
                 <div>
-                    <h2 class="text-xl font-semibold text-gray-800">Total Tickets</h2>
+                    <h2 class="text-md font-normal text-gray-800">Total Tickets</h2>
                     <p class="text-xl font-bold ">{{count.tickets}}</p>
                 </div>
-                <div class="p-4 bg-red-300 rounded-full">
-                    <svg class="w-[25px] h-[25px] text-gray-800 dark:text-white" aria-hidden="true"
+                <div class="p-4 bg-pink-500 rounded-full">
+                    <svg class="w-[25px] h-[25px] text-white dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"
                             d="M18.5 12A2.5 2.5 0 0 1 21 9.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v2.5a2.5 2.5 0 0 1 0 5V17a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2.5a2.5 2.5 0 0 1-2.5-2.5Z" />
@@ -21,14 +21,14 @@
 
                 </div>
             </div>
-            <div class="font-bold text-gray-600">All</div>
+            <div class="font-normal text-md text-gray-600">All</div>
 
         </div>
         <div
-            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
+            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:cursor-pointer hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
             <div class="flex flex-1 justify-between">
                 <div>
-                    <h2 class="text-xl font-semibold text-gray-800">Reply </h2>
+                    <h2 class="text-md font-normal text-gray-800">Total Reply </h2>
                     <p class="text-xl font-bold ">{{count.replay}}</p>
                 </div>
                 <div class="p-4 bg-green-400 rounded-full">
@@ -40,15 +40,15 @@
 
                 </div>
             </div>
-            <div class="font-bold text-green-600 mt-1">Chat </div>
+            <div class="font-normal text-md text-green-600 mt-1">Chat </div>
 
         </div>
 
         <div
-            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
+            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:cursor-pointer hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
             <div class="flex flex-1 justify-between">
                 <div>
-                    <h2 class="text-xl font-semibold text-gray-800">Total Users</h2>
+                    <h2 class="text-md font-normal text-gray-800">Total Users</h2>
                     <p class="text-xl font-bold ">{{count.users}}</p>
                 </div>
                 <div class="p-4 bg-indigo-600 rounded-full">
@@ -61,15 +61,15 @@
 
                 </div>
             </div>
-            <div class="font-bold text-indigo-700">user</div>
+            <div class="font-normal text-md text-indigo-700">user</div>
 
         </div>
 
         <div
-            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
+            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:shadow-xl hover:cursor-pointer transition-all transform hover:-translate-y-1 duration-300 ">
             <div class="flex flex-1 justify-between">
                 <div>
-                    <h2 class="text-xl font-semibold text-gray-800">Total agents</h2>
+                    <h2 class="text-md font-normal text-gray-800">Total agents</h2>
                     <p class="text-xl font-bold ">{{count.agents}}</p>
                 </div>
                 <div class="p-4 bg-red-600 rounded-full">
@@ -82,15 +82,15 @@
 
                 </div>
             </div>
-            <div class="text-red-600 font-bold">All Agents</div>
+            <div class="text-red-600 text-md font-normal">All Agents</div>
 
         </div>
 
         <div
-            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
+            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:shadow-xl hover:cursor-pointer transition-all transform hover:-translate-y-1 duration-300 ">
             <div class="flex flex-1 justify-between">
                 <div>
-                    <h2 class="text-xl font-semibold text-gray-800">resloved tickets</h2>
+                    <h2 class="text-md font-normal text-gray-800">resloved tickets</h2>
                     <p class="text-xl font-bold ">{{count.resloved_tickets}}</p>
                 </div>
                 <div class="p-4 bg-amber-500 rounded-full">
@@ -103,19 +103,19 @@
 
                 </div>
             </div>
-            <div class="text-amber-600 font-bold">Great Job!</div>
+            <div class="text-amber-600 text-md font-normal">Great Job!</div>
 
         </div>
 
         <div
-            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
+            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:cursor-pointer hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
             <div class="flex flex-1 justify-between">
                 <div>
-                    <h2 class="text-xl font-semibold text-gray-800">Open Tickets</h2>
+                    <h2 class="text-md font-normal text-gray-800">Open Tickets</h2>
                     <p class="text-xl font-bold ">{{count.opens}}</p>
                 </div>
-                <div class="p-4 bg-sky-300 rounded-full">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                <div class="p-4 bg-sky-500 rounded-full">
+                    <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 6.03v13m0-13c-2.819-.831-4.715-1.076-8.029-1.023A.99.99 0 0 0 3 6v11c0 .563.466 1.014 1.03 1.007 3.122-.043 5.018.212 7.97 1.023m0-13c2.819-.831 4.715-1.076 8.029-1.023A.99.99 0 0 1 21 6v11c0 .563-.466 1.014-1.03 1.007-3.122-.043-5.018.212-7.97 1.023" />
@@ -124,18 +124,18 @@
 
                 </div>
             </div>
-            <div class="text-sky-500 font-bold">Need Attention!</div>
+            <div class="text-sky-500 text-md font-normal">Need Attention!</div>
 
         </div>
         <div
-            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
+            class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:cursor-pointer hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
             <div class="flex flex-1 justify-between">
                 <div>
-                    <h2 class="text-xl font-semibold text-gray-800">Inprogress</h2>
+                    <h2 class="text-md font-normal text-gray-800">Inprogress</h2>
                     <p class="text-xl font-bold ">{{count.inprogress}}</p>
                 </div>
                 <div class="p-4 bg-teal-500 rounded-full">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                    <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 6.03v13m0-13c-2.819-.831-4.715-1.076-8.029-1.023A.99.99 0 0 0 3 6v11c0 .563.466 1.014 1.03 1.007 3.122-.043 5.018.212 7.97 1.023m0-13c2.819-.831 4.715-1.076 8.029-1.023A.99.99 0 0 1 21 6v11c0 .563-.466 1.014-1.03 1.007-3.122-.043-5.018.212-7.97 1.023" />
@@ -144,7 +144,7 @@
 
                 </div>
             </div>
-            <div class="text-teal-500 font-bold">Continue Chat</div>
+            <div class="text-teal-500 text-md font-normal">Continue Chat</div>
 
         </div>
         

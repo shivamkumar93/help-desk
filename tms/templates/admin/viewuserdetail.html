@@ -2,8 +2,8 @@
 
 {% block content %}
 
-<div class="flex flex-col w-full px-[7%] mt-3">
-    <div class="flex flex-col bg-white shadow-lg w-full py-5 ">
+<div class="flex flex-col w-full  mt-3">
+    <div class="flex flex-col bg-white rounded-lg shadow-lg w-full py-5 ">
         <h1 class="text-2xl font-semibold text-center mb-1">User Details</h1>
         <hr>
         <p class="text-lg font-medium border-b px-10 ">Username :<span class="font-normal text-gray-500 text-md ml-4">
@@ -16,16 +16,16 @@
                 {{customer.last_login}}</span></p>
     </div>
 
-    <div class="mt-10 flex flex-col">
-        <h2 class="text-xl font-semibold mt-5 px-6">Total assigned tickets</h2>
+    <div class="mt-3 flex flex-col">
+        <h2 class="text-xl font-semibold mt-5">Total tickets</h2>
         <div class="bg-white shadow-lg rounded-lg mt-2">
             <table class="w-full border-collapse">
-                <thead class="bg-gray-100 ">
+                <thead class="bg-gray-300 ">
                     <tr>
                         <th class="text-lg font-semibold p-3 border">ID</th>
                         <th class="text-lg font-semibold p-3 border">Title</th>
                         <th class="text-lg font-semibold p-3 border">Description</th>
-                        <th class="text-lg font-semibold p-3 border">Image</th>
+                        <!-- <th class="text-lg font-semibold p-3 border">Image</th> -->
                         <th class="text-lg font-semibold p-3 border"> Assigned_to</th>
                         <th class="text-lg font-semibold p-3 border">Status</th>
                     </tr>
@@ -37,13 +37,13 @@
                         <td class="p-3 border text-gray-700">{{ ticket.id }}</td>
                         <td class="p-3 border font-semibold text-gray-700">{{ ticket.title }}</td>
                         <td class="p-3 border font-medium text-gray-700">{{ ticket.description }}</td>
-                        <td class="p-3 border">
+                        <!-- <td class="p-3 border">
                             {% if ticket.image %}
                             <img src="{{ ticket.image.url }}" class="w-16 h-16 rounded shadow">
                             {% else %}
                             <span class="text-gray-500 font-medium text-gray-700 ">No Image</span>
                             {% endif %}
-                        </td>
+                        </td> -->
                         <td class="p-3 border font-medium text-gray-700">{{ ticket.assigned_to.username }}</td>
 
                         <td class="p-3 border font-medium text-gray-700">

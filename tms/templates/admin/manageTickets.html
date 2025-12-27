@@ -1,22 +1,22 @@
 {% extends 'admin/adminbase.html' %}
 
 {% block content %}
-<div class="flex flex-1 justify-between items-center mt-2 px-6">
-    <h2 class="text-2xl font-semibold text-green-600 ">Manage all open Tickets </h2>
+<div class="flex flex-1 justify-between items-center">
+    <h2 class="text-2xl font-semibold text-gray-600 ">Manage all open Tickets </h2>
 </div>
 <!-- Open Ticket -->
-<div class=" overflow-x-auto  sm:rounded-lg px-6 mt-5">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-100 uppercase bg-gray-400 dark:bg-gray-700 dark:text-gray-400">
+<div class="overflow-x-auto sm:rounded-lg  mt-3 ">
+    <table class="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-x-scroll">
+        <thead class="text-xs text-gray-100 uppercase bg-gray-600 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">Id</th>
-                <th scope="col" class="px-6 py-3">Title</th>
-                <th scope="col" class="px-6 py-3">Image</th>
-                <th scope="col" class="px-6 py-3">Status</th>
-                <th scope="col" class="px-6 py-3">Created_by</th>
-                <th scope="col" class="px-6 py-3">Assigned_to</th>
+                <th scope="col" class="px-6 py-3 ">Id</th>
+                <th scope="col" class="px-6 py-3 ">Title</th>
+                <th scope="col" class="px-6 py-3 ">Image</th>
+                <th scope="col" class="px-6 py-3 ">Status</th>
+                <th scope="col" class="px-6 py-3 ">Created_by</th>
+                <th scope="col" class="px-6 py-3 ">Assigned_to</th>
 
-                <th scope="col" class="px-6 py-3 text-right pr-[5%]">
+                <th scope="col" class="px-6 py-3 text-right ">
                     Action
                 </th>
             </tr>
@@ -24,15 +24,15 @@
         <tbody>
             {% for ticket in tickets %}
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <th scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ ticket.id }}
                 </th>
-                <td class="px-6 py-3 text-sm">{{ticket.title}}</td>
-                <td class="px-6 py-3 text-sm">
+                <td class="px-6 py-1 text-lg font-medium text-gray-600">{{ticket.title}}</td>
+                <td class="px-6 py-1 text-md font-medium">
 
                     {% if ticket.attachments.exists %}
                     {% for attachment in ticket.attachments.all %}
-                    <a href="{{attachment.file.url }}" target="_blank">{{ attachment.file.name }} </a>
+                    <a href="{{attachment.file.url }}" target="_blank" class="text-indigo-500">{{ attachment.file.name }} </a>
                     <!-- <img src=" " alt=" attachment" class="size-28"> -->
                     {% endfor %}
                         
@@ -43,22 +43,24 @@
 
                 </td>
 
-                <td class="px-6 py-3 text-sm"> {{ticket.status}} </td>
-                <td class="px-6 py-3 text-sm"> {{ticket.created_by}} </td>
-                <td class="px-6 py-3 text-sm"> <a href="{% url 'assignticket' ticket.id %}">Assigned</a> </td>
+                <td class="px-6 py-1 text-lg  text-yellow-600"> {{ticket.status}} </td>
+                <td class="px-6 py-1 text-lg  text-gray-600"> {{ticket.created_by}} </td>
+                <td class="px-6 py-1 text-lg hover:underline text-gray-600"> <a href="{% url 'assignticket' ticket.id %}">Assigned</a> </td>
 
 
-                <td class="px-6 py-3 text-right space-x-4">
-                    <a href="{% url 'deleteticket' ticket.id %}"
-                        class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                <td class="px-6 py-1 text-right space-x-4">
                     <a href="{% url 'ticketreply' ticket.id %}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View chat</a>
 
+                    <a href="{% url 'deleteticket' ticket.id %}"
+                        class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                    
                     {% if ticket.status != 'closed' %}
 
                     <a href="{% url 'changestatus' ticket.id %}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">closed</a>
                     {% endif %}
+                    
                 </td>
             </tr>
             {% empty %}
@@ -73,10 +75,10 @@
 </div>
 
 <!-- assigned Ticket -->
-<h2 class="text-2xl font-semibold text-teal-700 mt-5 px-6">Staff assigned tickets</h2>
-<div class=" overflow-x-auto sm:rounded-lg px-6 mt-5">
+<h2 class="text-2xl font-semibold text-gray-600 mt-3">Staff assigned tickets</h2>
+<div class=" overflow-x-auto sm:rounded-lg  mt-3">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-white uppercase bg-teal-500 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-white uppercase bg-gray-500 text-gray-900 dark:bg-gray-700  ">
             <tr>
                 <th scope="col" class="px-6 py-3">Id</th>
                 <th scope="col" class="px-6 py-3">Title</th>
@@ -92,16 +94,16 @@
         </thead>
         <tbody>
             {% for agent in assigned_ticket %}
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-teal-200 dark:hover:bg-gray-600">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600">
                 <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ agent.id }}
                 </th>
-                <td class="px-6 py-3 text-sm">{{agent.title}}</td>
-                <td class="px-6 py-3 text-sm">
+                <td class="px-6 py-3 text-lg font-medium text-gray-600">{{agent.title}}</td>
+                <td class="px-6 py-3 font-medium">
 
                     {% if ticket.attachments.exists %}
                     {% for attachment in ticket.attachments.all %}
-                    <a href="{{attachment.file.url }}" target="_blank">{{ attachment.file.name }} </a>
+                    <a href="{{attachment.file.url }}" target="_blank" class="text-blue-500">{{ attachment.file.name }} </a>
                     <!-- <img src=" " alt=" attachment" class="size-28"> -->
                     {% endfor %}
                         
@@ -112,9 +114,9 @@
 
                 </td>
 
-                <td class="px-6 py-3 text-sm"> {{agent.status}} </td>
-                <td class="px-6 py-3 text-sm"> {{agent.created_by}} </td>
-                <td class="px-6 py-3 text-sm"> {{agent.assigned_to}} </td>
+                <td class="px-6 py-3 text-sm text-green-500 font-medium"> {{agent.status}} </td>
+                <td class="px-6 py-3 text-lg"> {{agent.created_by}} </td>
+                <td class="px-6 py-3 text-lg"> {{agent.assigned_to}} </td>
 
 
                 <td class="px-6 py-3 text-right space-x-4">
@@ -142,10 +144,10 @@
 </div>
 
  <!-- closed ticket -->
-<h2 class="text-2xl font-semibold text-gray-700 mt-5 px-6">Closed tickets</h2>
-<div class=" overflow-x-auto sm:rounded-lg px-6 mt-5">
+<h2 class="text-2xl font-semibold text-gray-600 mt-3">Closed tickets</h2>
+<div class=" overflow-x-auto sm:rounded-lg  mt-3    ">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-white uppercase bg-green-400 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-400 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">Id</th>
                 <th scope="col" class="px-6 py-3">Title</th>
@@ -161,16 +163,16 @@
         </thead>
         <tbody>
             {% for closed in closed_ticket %}
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-green-200 ">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-slate-100 ">
                 <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ closed.id }}
                 </th>
-                <td class="px-6 py-3 text-sm">{{closed.title}}</td>
-                <td class="px-6 py-3 text-sm">
+                <td class="px-6 py-3 text-gray-600 text-lg font-medium">{{closed.title}}</td>
+                <td class="px-6 py-3 text-sm font-medium">
 
                     {% if ticket.attachments.exists %}
                     {% for attachment in ticket.attachments.all %}
-                    <a href="{{attachment.file.url }}" target="_blank">{{ attachment.file.name }} </a>
+                    <a href="{{attachment.file.url }}" target="_blank" class="text-blue-500">{{ attachment.file.name }} </a>
                     <!-- <img src=" " alt=" attachment" class="size-28"> -->
                     {% endfor %}
                         
@@ -181,9 +183,9 @@
 
                 </td>
 
-                <td class="px-6 py-3 text-sm"> {{closed.status}} </td>
-                <td class="px-6 py-3 text-sm"> {{closed.created_by}} </td>
-                <td class="px-6 py-3 text-sm"> {{closed.assigned_to}} </td>
+                <td class="px-6 py-3 font-medium text-red-500 text-sm"> {{closed.status}} </td>
+                <td class="px-6 py-3 text-lg text-gray-600"> {{closed.created_by}} </td>
+                <td class="px-6 py-3 text-lg text-gray-600"> {{closed.assigned_to}} </td>
 
 
                 <td class="px-6 py-3 text-right space-x-4">
@@ -201,7 +203,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="3" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                <td colspan="3" class="px-6 py-4 text-center font-medium text-gray-500 dark:text-gray-400">
                     No assigned any tickets
                 </td>
             </tr>

@@ -37,33 +37,33 @@
 
     <div class="flex">
         <!-- Sidebar -->
-        <aside class="w-64 bg-gray-800  shadow-md min-h-screen">
+        <aside class="w-64 bg-gray-800 shadow-md min-h-screen">
             <nav class="mt-6">
                 <ul class="space-y-1">
                     <li>
                         <a href="{% url 'admindashboard' %}"
-                           class="flex items-center gap-4 px-6 py-3 text-gray-100 hover:bg-blue-50 hover:text-blue-700 transition ">
+                           class="flex items-center gap-4 px-6 py-3 text-gray-100 hover:bg-gray-600 hover:text-gray-900 transition ">
                             <i class="fas fa-home text-lg"></i>
                             <span class="font-medium">Dashboard</span>
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'manageticket' %}"
-                           class="flex items-center gap-4 px-6 py-3 text-gray-100 hover:bg-blue-50 hover:text-blue-700 transition ">
+                           class="flex items-center gap-4 px-6 py-3 text-gray-100 hover:bg-gray-600 hover:text-gray-900 transition ">
                             <i class="fas fa-ticket-alt text-lg"></i>
                             <span class="font-medium">Manage Tickets</span>
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'manageagent' %}"
-                           class="flex items-center gap-4 px-6 py-3 text-gray-100 hover:bg-blue-50 hover:text-blue-700 transition ">
+                           class="flex items-center gap-4 px-6 py-3 text-gray-100 hover:bg-gray-600 hover:text-gray-900 transition ">
                             <i class="fas fa-headset text-lg"></i>
                             <span class="font-medium">Agents</span>
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'manageuser' %}"
-                           class="flex items-center gap-4 px-6 py-3 text-gray-100 hover:bg-blue-50 hover:text-blue-700 transition ">
+                           class="flex items-center gap-4 px-6 py-3 text-gray-100 hover:bg-gray-600 hover:text-gray-900 transition ">
                             <i class="fas fa-users text-lg"></i>
                             <span class="font-medium">Manage Users</span>
                         </a>
@@ -71,7 +71,7 @@
 
                     <li class="border-t border-gray-200 mt-8 pt-4">
                         <a href="{% url 'logout' %}"
-                           class="flex items-center gap-4 px-6 py-3 text-red-600 hover:bg-red-50 transition">
+                           class="flex items-center gap-4 px-6 py-3 text-red-600 hover:bg-gray-600 hover:text-gray-900 transition">
                             <i class="fas fa-sign-out-alt text-lg"></i>
                             <span class="font-medium">Logout</span>
                         </a>
@@ -81,7 +81,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1  bg-amber-50 min-h-screen">
+        <main class="flex-1 p-[3%]  bg-gray-100 min-h-screen">
             {% block content %}
                 <!-- Your page content will go here -->
             {% endblock %}
