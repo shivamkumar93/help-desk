@@ -11,9 +11,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage, name='homepage'),
     path('register/', register , name='registerpage'),
-    path('login', custom_login, name = 'login'),
+    path('login/', custom_login, name = 'login'),
     #path('after_login', after_login, name = 'loginrole'),
-    path('logout', user_logout, name = 'logout'),
+    path('logout/', user_logout, name = 'logout'),
 
     # admin urls
     path('admindashboard/', dashboard, name='admindashboard'),
