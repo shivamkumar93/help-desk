@@ -102,3 +102,6 @@ def reopen_ticket(request, ticket_id):
     ticket.status = 'open'
     ticket.save()
     return redirect(userDashboard)
+
+def footer(request):
+    return render(request, 'footer.html')

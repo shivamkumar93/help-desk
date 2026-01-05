@@ -14,6 +14,7 @@ urlpatterns = [
     path('login/', custom_login, name = 'login'),
     #path('after_login', after_login, name = 'loginrole'),
     path('logout/', user_logout, name = 'logout'),
+    path('footer/', footer, name='footerpage'),
 
     # admin urls
     path('admindashboard/', dashboard, name='admindashboard'),
