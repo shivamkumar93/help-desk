@@ -76,25 +76,40 @@ def userDashboard(request):
 @login_required
 @role_required(allowed_roles=['user'])
 def ticketDetail(request, ticket_id):
-    ticket = get_object_or_404(TicketSupport, id=ticket_id, created_by = request.user)
+
+    ticket = get_object_or_404(
+        TicketSupport,
+        id=ticket_id,
+        created_by=request.user
+    )
+
     replies = ticket.comments.all().order_by('created_at')
     attachments = ticket.attachments.all()
     form = TicketCommentForm(request.POST or None)
-    
+
     if request.method == 'POST':
         if form.is_valid():
             reply = form.save(commit=False)
             reply.ticket = ticket
             reply.author = request.user
             reply.save()
-            if request.user.role == 'staff' or request.user.is_superuser:
-                if ticket.assigned_to is None:
-                    ticket.assigned_to = request.user
-                if ticket.status != 'in_progress':
-                    ticket.status = 'in_progress'
-                ticket.save()
-            return redirect('replycomment', id=ticket.id)
-    return render(request, 'user/ticketdetail.html', {'ticket':ticket, 'replies':replies, 'form':form, 'attachments':attachments})
+
+            # ❌ USER should NOT assign ticket or change status
+            # That is STAFF responsibility only
+
+            return redirect('ticketdetail', ticket_id=ticket.id)
+
+    return render(
+        request,
+        'user/ticketdetail.html',
+        {
+            'ticket': ticket,
+            'replies': replies,
+            'form': form,
+            'attachments': attachments
+        }
+    )
+
 
 
 def reopen_ticket(request, ticket_id):
