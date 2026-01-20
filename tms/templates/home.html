@@ -1,25 +1,53 @@
 {% extends 'base.html' %}
- {% load static %}
+{% load static %}
 {% block content %}
 
-<div
-    class="flex flex-col bg-gradient-to-r from-[#4C9AFF] to-[#B3E5FC] text-[#0D1B2A] lg:flex-row lg:items-center  px-[10%] py-20">
-    <div class="">
-        <h4 class="mb-2 text-2xl font-bold capitalize">Hi,
-            {% if request.user.is_authenticated %} {{user.username}}! {% else %} Guest! {% endif %} </h4>
-        <h2 class="text-4xl font-bold">Welcome to Tech Support</h2>
-        <p class="mt-4 text-lg">Your one-step sloutation for all your technical suppot needs. We provide expert
-            assistance for hardware, software, and network issues.</p>
-        <a href="{% url 'userdashboard' %}" class="py-3 font-semibold px-6 rounded hover:text-white bg-blue-600 hover:bg-blue-800 mt-4
-        inline-block ">Get Started</a>
+<!-- Hero Section -->
+<div class="flex flex-col-reverse lg:flex-row items-center justify-between bg-gradient-to-r from-[#4C9AFF] to-[#B3E5FC] text-[#0D1B2A] px-6 md:px-16 py-16 lg:py-24">
+    
+    <!-- Text Content -->
+    <div class="lg:w-1/2 text-center lg:text-left">
+        <h4 class="mb-2 text-2xl font-bold">
+            Hi, {% if request.user.is_authenticated %} {{ user.username }}! {% else %} Guest! {% endif %}
+        </h4>
+        <h2 class="text-4xl md:text-5xl font-bold leading-tight">
+            Welcome to Tech Support
+        </h2>
+        <p class="mt-4 text-lg md:text-xl text-[#0D1B2A]/90">
+            Your one-stop solution for all your technical support needs. We provide expert assistance for hardware, software, and network issues.
+        </p>
+        <a href="{% url 'userdashboard' %}" class="mt-6 inline-block py-3 px-8 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-800 transition duration-300">
+            Get Started
+        </a>
     </div>
 
-    <div class="mt-8 lg:mt-0">
-        
-        <img src="{% static 'banner.png' %}" alt="" class="h-96 w-auto">
+    <!-- Image Content -->
+    <div class="lg:w-1/2 flex justify-center mb-8 lg:mb-0">
+        <img src="{% static 'banner.png' %}" alt="Tech Support Banner" class="h-64 md:h-96 w-auto object-contain">
     </div>
+
 </div>
 
-
+<!-- Features Section -->
+<div class="px-6 md:px-16 py-16 bg-white">
+    <h3 class="text-3xl font-bold text-center mb-12">Our Services</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div class="p-6 border rounded-lg shadow hover:shadow-lg transition">
+            <img src="{% static 'icons/hardware.png' %}" alt="Hardware Support" class="mx-auto mb-4 h-16">
+            <h4 class="text-xl font-semibold mb-2">Hardware Support</h4>
+            <p class="text-[#0D1B2A]/80">Troubleshoot and repair your devices efficiently and professionally.</p>
+        </div>
+        <div class="p-6 border rounded-lg shadow hover:shadow-lg transition">
+            <img src="{% static 'icons/software.png' %}" alt="Software Support" class="mx-auto mb-4 h-16">
+            <h4 class="text-xl font-semibold mb-2">Software Support</h4>
+            <p class="text-[#0D1B2A]/80">Install, update, and fix software issues to keep you productive.</p>
+        </div>
+        <div class="p-6 border rounded-lg shadow hover:shadow-lg transition">
+            <img src="{% static 'icons/network.png' %}" alt="Network Support" class="mx-auto mb-4 h-16">
+            <h4 class="text-xl font-semibold mb-2">Network Support</h4>
+            <p class="text-[#0D1B2A]/80">Secure, reliable, and fast network solutions for home or office.</p>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

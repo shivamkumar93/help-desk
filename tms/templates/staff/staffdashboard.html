@@ -33,7 +33,8 @@
         </div>
 
         <!-- Open Tickets -->
-        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <a href="{% url 'staffticket' %}">
+            <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-600">Open Tickets</p>
@@ -48,6 +49,7 @@
             </div>
         </div>
 
+        </a>
         <!-- Resolved Tickets -->
         <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
             <div class="flex items-center justify-between">
@@ -65,7 +67,8 @@
         </div>
 
         <!-- Total Staff -->
-        <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+       <a href="{% url 'managestaffuser' %}">
+         <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-600">Active Staff</p>
@@ -79,6 +82,7 @@
                 <span class="text-gray-500">Team members</span>
             </div>
         </div>
+       </a>
     </div>
 
     <!-- Optional: Quick Stats or Recent Activity (you can expand later) -->

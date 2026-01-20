@@ -23,6 +23,7 @@ def staff_dashboard(request):
 @login_required
 @role_required(allowed_roles=['staff'])
 def manage_staff(request):
+    
     return render(request, 'staff/managestaff.html')
 
 

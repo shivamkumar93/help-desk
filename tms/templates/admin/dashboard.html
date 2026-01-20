@@ -44,7 +44,8 @@
 
         </div>
 
-        <div
+        <a href="{% url 'manageuser' %}">
+            <div
             class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:cursor-pointer hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
             <div class="flex flex-1 justify-between">
                 <div>
@@ -64,8 +65,10 @@
             <div class="font-normal text-md text-indigo-700">user</div>
 
         </div>
+        </a>
 
-        <div
+        <a href="{% url 'manageagent' %}">
+            <div
             class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:shadow-xl hover:cursor-pointer transition-all transform hover:-translate-y-1 duration-300 ">
             <div class="flex flex-1 justify-between">
                 <div>
@@ -85,6 +88,7 @@
             <div class="text-red-600 text-md font-normal">All Agents</div>
 
         </div>
+        </a>
 
         <div
             class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:shadow-xl hover:cursor-pointer transition-all transform hover:-translate-y-1 duration-300 ">
@@ -107,7 +111,8 @@
 
         </div>
 
-        <div
+       <a href="{% url 'manageticket' %}">
+         <div
             class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:cursor-pointer hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
             <div class="flex flex-1 justify-between">
                 <div>
@@ -127,7 +132,9 @@
             <div class="text-sky-500 text-md font-normal">Need Attention!</div>
 
         </div>
-        <div
+       </a>
+        <a href="{% url 'manageticket' %}">
+            <div
             class="bg-white border border-gray-200 px-5 py-7  rounded-lg flex-1 hover:cursor-pointer hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300 ">
             <div class="flex flex-1 justify-between">
                 <div>
@@ -147,6 +154,7 @@
             <div class="text-teal-500 text-md font-normal">Continue Chat</div>
 
         </div>
+        </a>
         
         
     </div>
